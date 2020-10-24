@@ -1,0 +1,361 @@
+body, html{
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Bebas Neue', cursive;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.hidden{
+    display: none;
+}
+
+.smallLogo{
+    height: 10rem !important;
+}
+
+#mainBackVideo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background-color: black;
+}
+
+.landerWrapper{
+    width: 80%;
+    margin: 4rem auto 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.loginForm, .registerForm{
+    background-color: rgb(255, 255, 255, 0.4);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 4px solid white;
+}
+
+.loginForm form, .registerForm form{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 40rem;
+    position: relative;
+}
+
+.loginForm form input, .registerForm form input{
+    width: 100%;
+    margin-bottom: 1.5rem;
+    margin-top: .25rem;
+    padding: .75rem 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.loginForm form label, .registerForm form label{
+    color: white;
+}
+
+.loginForm form button, .registerForm form button{
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+
+.half-width{
+    width: calc(50% - 1rem);
+    position: relative;
+    margin: 0 0.5rem;
+    text-align: left;
+}
+
+.loginForm .buttonWrapper{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.loginForm .buttonWrapper .schLogin{
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-shadow: none;
+    align-self: flex-end;
+}
+
+.registerForm .buttonWrapper{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.landerWrapper img{
+    height: 20rem;
+    transition: .3s all;
+}
+
+.landerWrapper__link{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 3rem;
+}
+
+.landerWrapper__link a{
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow: 4px 4px 4px black;
+}
+
+.landerWrapper__link a:not(:first-of-type){
+    margin-left: 10rem;
+}
+
+.pageContainer{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.sideBar{
+    width: 100%;
+    height: 5rem;
+    background-color: black;
+    color: white;
+    transition: .3s all;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.sideBarLogo{
+    align-self: flex-end;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+}
+
+.sideBarLogo img{
+    width: 8rem;
+}
+
+.mainSection{
+    width: 100%;
+    height: calc(100vh - 5rem);
+    overflow: auto;
+    transition: .3s all;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.sideBarToggle{
+    margin-top: .5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+.sideBarToggle i{
+    cursor: pointer;
+}
+
+.sideBar ul{
+    opacity: 1;
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.sideBar ul img{
+    height: 3rem;
+}
+
+.sideBar ul a{
+    color: white;
+    text-decoration: none;
+}
+
+.sideBar ul a li{
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.pageTitle{
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.newsFlex{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.newsItem{
+    width: 80%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5rem;
+}
+
+.newsItem__title{
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid black;
+    font-size: 1.75rem;
+}
+
+.newsItem__text{
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.newsItem__date{
+    width: 100%;
+    font-size: 1.5rem;
+    align-self: flex-end;
+    margin: 0;
+}
+
+.containerFlex{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.aboutImg{
+    width: 47%;
+    border-radius: 20px;
+}
+
+.half{
+    width: 50% !important;
+}
+
+.aboutText{
+    font-size: 1.75rem;
+    width: 100%;
+    
+}
+
+.aboutBack{
+    width: 100%;
+    background-color: white;    
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 4rem 0 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+}
+
+.aboutText h1{
+    margin-top: 0;
+}
+
+.aboutText.leaders{
+    line-height: 2.5rem;
+}
+
+.aboutText.title{
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.aboutText.title h2{
+    margin: 0;
+    border-bottom: 2px solid black;
+}
+
+.aboutText.leaders .leaderFlex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.aboutText.leaders .leaderFlex p{
+    margin: 0;
+}
+
+.aboutText.leaders .leaderFlex .titles{
+    margin-right: 3rem;
+}
+
+.aboutText.items h4, .aboutText.items ul{
+    margin-left: 2rem;
+}
+
+.ruleContainer{
+    width: 100%;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+.ruleContainer .title{
+    display: flex;
+}
+
+.ruleContainer .title:not(:first-of-type){
+    margin-top: 2rem;
+}
+
+.ruleContainer .title h2{
+    border-bottom: 2px solid black;
+    margin: 0 0 1rem 0;
+}
+
+.ruleContainer p, .ruleContainer ol, .ruleContainer ul{
+    font-family: 'Roboto', sans-serif;
+    margin: 0 0 0 2rem;
+    line-height: 1.5rem;
+}
+
+.ruleContainer ol{
+    margin-bottom: .5rem;
+}
