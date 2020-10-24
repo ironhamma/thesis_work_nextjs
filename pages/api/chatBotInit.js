@@ -1,8 +1,7 @@
 export default async(req, res) => {
-    if(req.method === "GET"){
+    console.log(req.query);
         if(req.query['hub.verify_token'] === "szabobeno") {
             res.send(req.query['hub.challenge']);
         }
         res.send('Wrong token');
-    }
 }
