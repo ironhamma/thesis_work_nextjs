@@ -30,6 +30,13 @@ nextApp.prepare().then(() => {
    /*  const reserveRoutes = require('./routes/reserve/index.js'); */
    /*  server.use('/api',reserveRoutes); */
 
+   expressApp.get("/api/chatBotInitial",(req,res) => {
+       console.log(req.query);
+       if(req.query['hub.verify_token'] === "szabobeno") {
+           res.send(req.query['hub.challenge']);
+       }
+       res.send('Wrong token');
+   });
    
 
 
@@ -39,7 +46,8 @@ nextApp.prepare().then(() => {
 
     expressApp.post("*", (req, res) => {
         return nextHandler(req, res);
-    })
+    });
+
 
     server.listen(PORT, (err) => {
         if(err) throw err;
