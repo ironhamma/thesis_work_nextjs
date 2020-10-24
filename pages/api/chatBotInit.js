@@ -3,5 +3,5 @@ export default (req, res) => {
         if(req.query['hub.verify_token'] === "szabobeno") {
             res.send(req.query['hub.challenge']);
         }
-        res.send('Wrong token');
+        /* res.send('Wrong token'); */
 }
