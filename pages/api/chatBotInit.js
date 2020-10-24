@@ -1,4 +1,5 @@
 export default (req, res) => {
+    console.log(req.method);
     if(req.method === 'GET'){
     console.log(req.query);
         if(req.query['hub.verify_token'] === "szabobeno") {
@@ -7,6 +8,7 @@ export default (req, res) => {
     }
     if(req.method === 'POST'){
         const messaging_events = req.body.entry[0].messaging_events;
+        console.log(messaging_events);
         for(let i = 0; i < messaging_events.length; ++i){
             let event = messaging_events[i];
             let sender = event.sender.id;
