@@ -57,7 +57,32 @@ export default (req, res) => {
 function handleMessage(sender_psid, received_message){
     let response;
 
-    if(received_message.text){
+    if(received_message.text === "Szia"){
+        response = {
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "generic",
+                "elements": [{
+                  "title": "Is this the right box?",
+                  "subtitle": "Tap a button to answer.",
+                  "buttons": [
+                    {
+                      "type": "postback",
+                      "title": "Yes!",
+                      "payload": "yes",
+                    },
+                    {
+                      "type": "postback",
+                      "title": "No!",
+                      "payload": "no",
+                    }
+                  ],
+                }]
+              }
+            }
+          }
+    } else {
         response = {
             "text" : `You sent a text! This: ${received_message.text}`
         }
@@ -67,7 +92,19 @@ function handleMessage(sender_psid, received_message){
 }
 
 function handlePostback(sender_psid, received_postback){
-
+    let response;
+  
+    // Get the payload for the postback
+    let payload = received_postback.payload;
+  
+    // Set the response based on the postback payload
+    if (payload === 'yes') {
+      response = { "text": "Thanks!" }
+    } else if (payload === 'no') {
+      response = { "text": "Oops, try sending another box." }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
 }
 
 function callSendAPI(sender_psid, response){
