@@ -1,6 +1,7 @@
 import Sidebar from "../../components/Sidebar";
 import { withIronSession } from "next-iron-session";
 import { connectToDatabase } from "../../util/mongodb";
+import { useRouter } from "next/router";
 
 export const getServerSideProps = withIronSession(
   async ({ req, res }) => {
@@ -9,20 +10,27 @@ export const getServerSideProps = withIronSession(
     if (!user) {
       res.statusCode = 404;
       res.end();
-      return { props: {}};
+      return { props: {} };
     }
 
     const { db } = await connectToDatabase();
 
-    const userArray = await db
+    const sessUser = await db
       .collection("users")
-      .find({})
-      .toArray();
+      .findOne({ userName: user.userName });
+
+    if (!sessUser.isAdmin) {
+      res.statusCode = 403;
+      res.end();
+      return { props: {} };
+    }
+
+    const userArray = await db.collection("users").find({}).toArray();
 
     return {
       props: {
         userArray: JSON.parse(JSON.stringify(userArray)),
-        user
+        user,
       },
     };
   },
@@ -35,7 +43,20 @@ export const getServerSideProps = withIronSession(
   }
 );
 
-function UsersPage({ user, userArray }) {
+function UsersPage({ userArray, user }) {
+  const router = useRouter();
+  const toggleRole = async (userName) => {
+    const response = await fetch("/api/users/modifyRole", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userName }),
+    });
+
+    if (response.ok) {
+      return router.push("/admin/users");
+    }
+  };
+
   return (
     <div className="pageContainer">
       <Sidebar />
@@ -43,9 +64,30 @@ function UsersPage({ user, userArray }) {
         <h1 className="pageTitle">Felhasználók</h1>
         <div className="containerFlex">
           <ul>
-            {userArray.map(e => (
-              <li>{e.userName}</li>
-            ))}
+            {userArray.map((e, index) =>
+              e.isAdmin ? (
+                e.userName === user.userName ? (
+                  <li key={index}>
+                    <span>{e.userName}</span>
+                    <b>IS ADMIN</b>
+                  </li>
+                ) : (
+                  <li key={index}>
+                    <span>{e.userName}</span>
+                    <button onClick={() => toggleRole(e.userName)}>
+                      Admin jog elvétele
+                    </button>
+                  </li>
+                )
+              ) : (
+                <li key={index}>
+                  <span>{e.userName}</span>
+                  <button onClick={() => toggleRole(e.userName)}>
+                    Admin jog megadása
+                  </button>
+                </li>
+              )
+            )}
           </ul>
         </div>
       </div>
