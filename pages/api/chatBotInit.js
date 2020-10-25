@@ -38,8 +38,10 @@ export default async (req, res) => {
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
         if (webhook_event.message) {
+          console.log("bejovok ide is");
           await handleMessage(sender_psid, webhook_event.message);
         } else if (webhook_event.postback) {
+          console.log("else");
           await handlePostback(sender_psid, webhook_event.postback);
         }
       });
