@@ -171,6 +171,7 @@ async function callSendAPI(sender_psid, response) {
       json: request_body,
     },
     (err, res, body) => {
+      console.log(body);
       if (!err) {
         console.log("Message sent!");
       } else {
@@ -178,4 +179,5 @@ async function callSendAPI(sender_psid, response) {
       }
     }
   );
+  console.log('behivtam a fb-hez');
 }
