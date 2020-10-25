@@ -148,7 +148,7 @@ async function callSendAPI(sender_psid, response) {
     (err, res, body) => {
       if (!err) {
         console.log("Message sent!");
-        res.status(200).send("EVENT_RECEIVED");
+        res.sendStatus(200);
       } else {
         console.log("Unable to send message! " + err);
       }
