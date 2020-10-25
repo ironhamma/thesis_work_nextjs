@@ -1,27 +1,24 @@
 export default (req, res) => {
-    console.log(req.method);
-
-    const VERIFY_TOKEN = "szabobeno"
-    const mode = req.query['hub.mode'];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
-
-    if(mode && token){
-        if (mode === 'subscribe' && token === VERIFY_TOKEN){
-            console.log('Webhook verified!');
-            res.status(200).send(challenge);
-        } else {
-            res.sendStatus(403);
-        }
-    }
-
-
+    
     if(req.method === 'GET'){
-    console.log(req.query);
-        if(req.query['hub.verify_token'] === "szabobeno") {
-            res.send(req.query['hub.challenge']);
+        console.log(req.method);
+
+        const VERIFY_TOKEN = "szabobeno"
+        const mode = req.query['hub.mode'];
+        const token = req.query['hub.verify_token'];
+        const challenge = req.query['hub.challenge'];
+    
+        if(mode && token){
+            if (mode === 'subscribe' && token === VERIFY_TOKEN){
+                console.log('Webhook verified!');
+                res.status(200).send(challenge);
+            } else {
+                res.sendStatus(403);
+            }
         }
     }
+
+    
     if(req.method === 'POST'){
         const body = req.body;
 
