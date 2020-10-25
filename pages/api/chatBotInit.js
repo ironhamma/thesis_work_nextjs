@@ -2,7 +2,7 @@ import request from "request";
 
 let messagingPhase = 0;
 
-export default (req, res) => {
+export default async (req, res) => {
   if (req.method === "GET") {
     console.log(req.method);
 
@@ -25,7 +25,7 @@ export default (req, res) => {
     const body = req.body;
 
     if (body.object === "page") {
-      body.entry.forEach(async function (entry) {
+      await body.entry.forEach(async function (entry) {
         // Gets the body of the webhook event
         let webhook_event = entry.messaging[0];
         console.log(webhook_event);
@@ -56,6 +56,7 @@ async function handleMessage(sender_psid, received_message) {
 
   switch (messagingPhase) {
     case 0:
+      console.log(messagingPhase);
       if (received_message.text) {
         response = {
           text: `Próbaterem foglaláshoz kérlek add meg a foglalási azonosítódat!`,
@@ -64,6 +65,7 @@ async function handleMessage(sender_psid, received_message) {
       }
       break;
     case 1:
+      console.log(messagingPhase);
       if (received_message.text) {
         response = {
           attachment: {
@@ -90,6 +92,7 @@ async function handleMessage(sender_psid, received_message) {
       }
       break;
     case 2:
+      console.log(messagingPhase);
       if (received_message.text) {
         response = {
           text: `You sent a text! This: ${received_message.text}`,
