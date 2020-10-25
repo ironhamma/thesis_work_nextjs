@@ -1,5 +1,7 @@
 import request from "request";
 
+let messagingPhase = 0;
+
 export default (req, res) => {
   if (req.method === "GET") {
     console.log(req.method);
@@ -35,9 +37,9 @@ export default (req, res) => {
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
         if (webhook_event.message) {
-        await handleMessage(sender_psid, webhook_event.message);
+          await handleMessage(sender_psid, webhook_event.message);
         } else if (webhook_event.postback) {
-        await handlePostback(sender_psid, webhook_event.postback);
+          await handlePostback(sender_psid, webhook_event.postback);
         }
       });
 
@@ -52,37 +54,60 @@ export default (req, res) => {
 async function handleMessage(sender_psid, received_message) {
   let response;
 
-  if (received_message.text === "Szia") {
-    response = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [
-            {
-              title: "Is this the right box?",
-              subtitle: "Tap a button to answer.",
-              buttons: [
+  switch (messagingPhase) {
+    case 0:
+      if (received_message.text) {
+        response = {
+          text: `Próbaterem foglaláshoz kérlek add meg a foglalási azonosítódat!`,
+        };
+        messagingPhase++;
+      }
+      break;
+    case 1:
+      if (received_message.text) {
+        response = {
+          attachment: {
+            type: "template",
+            payload: {
+              template_type: "generic",
+              elements: [
                 {
-                  type: "postback",
-                  title: "Yes!",
-                  payload: "yes",
-                },
-                {
-                  type: "postback",
-                  title: "No!",
-                  payload: "no",
+                  title: "2020.10.26.",
+                  subtitle: "Válassz dátumot!",
+                  buttons: [
+                    {
+                      type: "postback",
+                      title: "Kiválasztom!",
+                      payload: "yes",
+                    },
+                  ],
                 },
               ],
             },
-          ],
-        },
-      },
-    };
-  } else {
-    response = {
-      text: `You sent a text! This: ${received_message.text}`,
-    };
+          },
+        };
+        messagingPhase++;
+      }
+      break;
+    case 2:
+      if (received_message.text) {
+        response = {
+          text: `You sent a text! This: ${received_message.text}`,
+        };
+      }
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    case 5:
+      break;
+    case 6:
+      break;
+    case 7:
+      break;
+    default:
+      break;
   }
 
   await callSendAPI(sender_psid, response);
