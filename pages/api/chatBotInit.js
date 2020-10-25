@@ -171,6 +171,7 @@ async function callSendAPI(sender_psid, response) {
       json: request_body,
     },
     (err, res, body) => {
+      console.log(res);
       console.log(body);
       if (!err) {
         console.log("Message sent!");
