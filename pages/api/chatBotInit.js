@@ -1,6 +1,6 @@
 import request from "request";
 
-export default async (req, res) => {
+export default (req, res) => {
   if (req.method === "GET") {
     console.log(req.method);
 
@@ -35,9 +35,9 @@ export default async (req, res) => {
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
         if (webhook_event.message) {
-        await handleMessage(sender_psid, webhook_event.message);
+        handleMessage(sender_psid, webhook_event.message);
         } else if (webhook_event.postback) {
-        await handlePostback(sender_psid, webhook_event.postback);
+        handlePostback(sender_psid, webhook_event.postback);
         }
       });
 
@@ -49,7 +49,7 @@ export default async (req, res) => {
   }
 };
 
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
   let response;
 
   if (received_message.text === "Szia") {
@@ -85,7 +85,7 @@ function handleMessage(sender_psid, received_message) {
     };
   }
 
-  callSendAPI(sender_psid, response);
+  await callSendAPI(sender_psid, response);
 }
 
 function handlePostback(sender_psid, received_postback) {
@@ -104,14 +104,14 @@ function handlePostback(sender_psid, received_postback) {
   callSendAPI(sender_psid, response);
 }
 
-function callSendAPI(sender_psid, response) {
+async function callSendAPI(sender_psid, response) {
   let request_body = {
     recipient: {
       id: sender_psid,
     },
     message: response,
   };
-  request(
+  await request(
     {
       uri: "https://graph.facebook.com/v2.6/me/messages",
       qs: { access_token: process.env.FB_PAGE_TOKEN },
