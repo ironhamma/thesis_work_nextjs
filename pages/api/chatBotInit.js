@@ -139,7 +139,20 @@ async function callSendAPI(sender_psid, response) {
     },
     message: response,
   };
-  await request(
+
+  const resp = await fetch("https://graph.facebook.com/v2.6/me/messages" + URLSearchParams({access_token : "EAAFMZAXKbBgwBADCFJ09P2wMk9qyZBEGkkdQPv92lH1vlQlP40JJ2wjHoYy6gem0ZCEvr4dv3q3s4e3v23CZBGKQDeUIHImnReMjXVxvZB7RFxYux1vU5sjGAEplYQZCeMxiTtQppMOqxNZBnNpgBcQGxwCE0bFJS6BdLfiObgwxZAG3d2AyWYRJ3ED4ldqXHGoZD"}), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(JSON.parse({
+      request_body
+    }))
+  });
+
+  if(resp.ok){
+    console.log('IT WORKED!');
+  }
+
+  /* await request(
     {
       uri: "https://graph.facebook.com/v2.6/me/messages",
       qs: { access_token: process.env.FB_PAGE_TOKEN },
@@ -153,5 +166,5 @@ async function callSendAPI(sender_psid, response) {
         console.log("Unable to send message! " + err);
       }
     }
-  );
+  ); */
 }
