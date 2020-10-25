@@ -22,6 +22,7 @@ export default async (req, res) => {
   }
 
   if (req.method === "POST") {
+    console.log("itt kezdodik a fuggvenx");
     const body = req.body;
 
     if (body.object === "page") {
@@ -43,9 +44,11 @@ export default async (req, res) => {
         }
       });
       res.status(200).send("EVENT RECEIVED!");
+      console.log("lefutott a fuggveny");
     } else {
       // Return a '404 Not Found' if event is not from a page subscription
       res.sendStatus(404);
+      console.log("else");
     }
   }
 };
