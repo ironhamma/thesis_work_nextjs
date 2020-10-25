@@ -42,8 +42,6 @@ export default async (req, res) => {
           await handlePostback(sender_psid, webhook_event.postback);
         }
       });
-
-      res.status(200).send("EVENT_RECEIVED");
     } else {
       // Return a '404 Not Found' if event is not from a page subscription
       res.sendStatus(404);
@@ -133,6 +131,7 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 async function callSendAPI(sender_psid, response) {
+  console.log('I reached this');
   let request_body = {
     recipient: {
       id: sender_psid,
@@ -149,6 +148,7 @@ async function callSendAPI(sender_psid, response) {
     (err, res, body) => {
       if (!err) {
         console.log("Message sent!");
+        res.status(200).send("EVENT_RECEIVED");
       } else {
         console.log("Unable to send message! " + err);
       }
