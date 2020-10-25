@@ -22,7 +22,6 @@ export default async (req, res) => {
   }
 
   if (req.method === "POST") {
-    console.log("itt kezdodik a fuggvenx");
     const body = req.body;
 
     if (body.object === "page") {
@@ -38,7 +37,6 @@ export default async (req, res) => {
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
         if (webhook_event.message) {
-          console.log("bejovok ide is");
           await handleMessage(sender_psid, webhook_event.message);
         } else if (webhook_event.postback) {
           console.log("else");
@@ -46,7 +44,6 @@ export default async (req, res) => {
         }
       });
       res.status(200).send("EVENT RECEIVED!");
-      console.log("lefutott a fuggveny");
     } else {
       // Return a '404 Not Found' if event is not from a page subscription
       res.sendStatus(404);
@@ -156,7 +153,7 @@ async function callSendAPI(sender_psid, response) {
     message: response,
   };
 
-  const resp = await fetch("https://graph.facebook.com/v2.6/me/messages?access_token=EAAFMZAXKbBgwBADCFJ09P2wMk9qyZBEGkkdQPv92lH1vlQlP40JJ2wjHoYy6gem0ZCEvr4dv3q3s4e3v23CZBGKQDeUIHImnReMjXVxvZB7RFxYux1vU5sjGAEplYQZCeMxiTtQppMOqxNZBnNpgBcQGxwCE0bFJS6BdLfiObgwxZAG3d2AyWYRJ3ED4ldqXHGoZD", {
+  /* const resp = await fetch("https://graph.facebook.com/v2.6/me/messages?access_token=EAAFMZAXKbBgwBADCFJ09P2wMk9qyZBEGkkdQPv92lH1vlQlP40JJ2wjHoYy6gem0ZCEvr4dv3q3s4e3v23CZBGKQDeUIHImnReMjXVxvZB7RFxYux1vU5sjGAEplYQZCeMxiTtQppMOqxNZBnNpgBcQGxwCE0bFJS6BdLfiObgwxZAG3d2AyWYRJ3ED4ldqXHGoZD", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(request_body)
@@ -164,9 +161,9 @@ async function callSendAPI(sender_psid, response) {
 
   if(resp.ok){
     console.log('IT WORKED!');
-  }
+  } */
 
-  /* await request(
+  await request(
     {
       uri: "https://graph.facebook.com/v2.6/me/messages",
       qs: { access_token: process.env.FB_PAGE_TOKEN },
@@ -180,5 +177,5 @@ async function callSendAPI(sender_psid, response) {
         console.log("Unable to send message! " + err);
       }
     }
-  ); */
+  );
 }
