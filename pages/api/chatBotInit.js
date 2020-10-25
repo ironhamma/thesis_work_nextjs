@@ -42,6 +42,7 @@ export default async (req, res) => {
           await handlePostback(sender_psid, webhook_event.postback);
         }
       });
+      res.sendStatus(200);
     } else {
       // Return a '404 Not Found' if event is not from a page subscription
       res.sendStatus(404);
@@ -148,7 +149,6 @@ async function callSendAPI(sender_psid, response) {
     (err, res, body) => {
       if (!err) {
         console.log("Message sent!");
-        res.sendStatus(200);
       } else {
         console.log("Unable to send message! " + err);
       }
