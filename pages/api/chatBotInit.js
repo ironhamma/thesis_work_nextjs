@@ -1,3 +1,5 @@
+import request from 'request';
+
 export default (req, res) => {
     
     if(req.method === 'GET'){
@@ -18,7 +20,7 @@ export default (req, res) => {
         }
     }
 
-    
+
     if(req.method === 'POST'){
         const body = req.body;
 
