@@ -37,7 +37,7 @@ function RegisterPage() {
     });
 
     if(response.ok){
-      return router.push("/news");
+      return router.push("/login");
     }
   }
 

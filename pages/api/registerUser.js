@@ -13,7 +13,8 @@ export default async(req, res) => {
         userTel: req.body.userTel,
         userDorm: req.body.userDorm,
         userRoom: req.body.userRoom,
-        userInstitute: req.body.userInstitute
+        userInstitute: req.body.userInstitute,
+        isAdmin: false
     }, (err, res) => {
         if(err) throw err;
         console.log(`${req.body.userName} document inserted!`);

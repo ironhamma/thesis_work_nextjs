@@ -29,6 +29,16 @@ export default function Sidebar() {
             <li>Üzenetek</li>
           </a>
         </Link>
+        <Link href="/profile">
+          <a>
+            <li>Profilom</li>
+          </a>
+        </Link>
+        <Link href="/admin/users">
+          <a>
+            <li>Felhasználók</li>
+          </a>
+        </Link>
         <Link href="/">
           <a>
             <li>Kilépés</li>

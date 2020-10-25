@@ -11,12 +11,8 @@ export default withIronSession(
 
             const user = await db.collection('users').find({userName: userName}).toArray();
 
-            console.log(req.body)
-            console.log(user[0].userPass);
-            console.log(userPass)
-
             if(userPass === user[0].userPass){
-                req.session.set("user", { userName });
+                req.session.set("user", { userName, isAdmin: user[0].isAdmin });
                 await req.session.save();
                 return res.status(200).send("");
             }

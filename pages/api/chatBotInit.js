@@ -83,6 +83,17 @@ async function handleMessage(sender_psid, received_message) {
                     },
                   ],
                 },
+                {
+                  title: "2020.10.26.",
+                  subtitle: "Válassz dátumot!",
+                  buttons: [
+                    {
+                      type: "postback",
+                      title: "Kiválasztom!",
+                      payload: "yes",
+                    },
+                  ],
+                },
               ],
             },
           },
