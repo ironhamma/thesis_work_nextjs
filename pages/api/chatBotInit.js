@@ -54,6 +54,44 @@ export default (req, res) => {
     }
 }
 
+function handleMessage(sender_psid, received_message){
+    let response;
+
+    if(received_message.text){
+        response = {
+            "text" : `You sent a text! This: ${received_message}`
+        }
+    }
+
+    callSendAPI(sender_psid, response);
+}
+
+function handlePostback(sender_psid, received_postback){
+
+}
+
+function callSendAPI(sender_psid, response){
+    let request_body = {
+        "recipient" : {
+            "id" : sender_psid
+        },
+        "message" : response
+    }
+    request({
+        "uri": "https://graph.facebook.com/v2.6/me/messages",
+        "qs": {"access_token": process.env.FB_PAGE_TOKEN},
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        if(!err){
+            console.log('Message sent!');
+        } else {
+            console.log("Unable to send message! " + err);
+        }
+    })
+}
+
+/* 
 function handleMessage(sender_psid, message) {
     //handle message for react, like press like button
     // id like button: sticker_id 369239263222822
@@ -179,4 +217,4 @@ function handlePostback(sender_psid, received_postback) {
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-}
+} */
