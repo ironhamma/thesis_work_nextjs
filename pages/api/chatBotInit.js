@@ -42,7 +42,7 @@ export default async (req, res) => {
           await handlePostback(sender_psid, webhook_event.postback);
         }
       });
-      res.sendStatus(200);
+      res.status(200).send("EVENT RECEIVED!");
     } else {
       // Return a '404 Not Found' if event is not from a page subscription
       res.sendStatus(404);
