@@ -23,7 +23,7 @@ export default (req, res) => {
     const body = req.body;
 
     if (body.object === "page") {
-      body.entry.forEach(function async (entry) {
+      body.entry.forEach(async function (entry) {
         // Gets the body of the webhook event
         let webhook_event = entry.messaging[0];
         console.log(webhook_event);
