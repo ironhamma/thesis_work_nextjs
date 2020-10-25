@@ -143,9 +143,7 @@ async function callSendAPI(sender_psid, response) {
   const resp = await fetch("https://graph.facebook.com/v2.6/me/messages?access_token=EAAFMZAXKbBgwBADCFJ09P2wMk9qyZBEGkkdQPv92lH1vlQlP40JJ2wjHoYy6gem0ZCEvr4dv3q3s4e3v23CZBGKQDeUIHImnReMjXVxvZB7RFxYux1vU5sjGAEplYQZCeMxiTtQppMOqxNZBnNpgBcQGxwCE0bFJS6BdLfiObgwxZAG3d2AyWYRJ3ED4ldqXHGoZD", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(JSON.parse({
-      request_body
-    }))
+    body: JSON.stringify(JSON.parse(request_body))
   });
 
   if(resp.ok){
