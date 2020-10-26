@@ -1,5 +1,5 @@
 import request from "request";
-import * as superagent from "superagent";
+const superagent = require('superagent');
 
 let messagingPhase = 0;
 
