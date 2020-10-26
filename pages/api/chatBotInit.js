@@ -182,7 +182,7 @@ async function callSendAPI(sender_psid, response) {
     }
   ); */
 
-  let kaga = await superagent
+  await superagent
   .post('https://graph.facebook.com/v2.6/me/messages')
   .query({access_token: process.env.FB_PAGE_TOKEN})
   .set({ "Content-Type": "application/json" })
@@ -192,6 +192,5 @@ async function callSendAPI(sender_psid, response) {
     console.log("Elküldtem");
     console.log(res);
   });
-  console.log(kaga);
   console.log('behivtam a fb-hez');
 }
