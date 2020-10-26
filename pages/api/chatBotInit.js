@@ -1,4 +1,5 @@
 import request from "request";
+import "superagent";
 
 let messagingPhase = 0;
 
@@ -163,7 +164,7 @@ async function callSendAPI(sender_psid, response) {
     console.log('IT WORKED!');
   } */
 
-  await request(
+  /* await request(
     {
       uri: "https://graph.facebook.com/v2.6/me/messages",
       qs: { access_token: process.env.FB_PAGE_TOKEN },
@@ -179,6 +180,17 @@ async function callSendAPI(sender_psid, response) {
         console.log("Unable to send message! " + err);
       }
     }
-  );
+  ); */
+
+  await superagent
+  .post('https://graph.facebook.com/v2.6/me/messages')
+  .query({access_token: process.env.FB_PAGE_TOKEN})
+  .set({ "Content-Type": "application/json" })
+  .send(JSON.stringify(request_body))
+  .end((err, res) => {
+    console.log("Elküldtem");
+    console.log(res);
+  });
+
   console.log('behivtam a fb-hez');
 }
