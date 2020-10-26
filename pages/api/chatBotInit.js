@@ -187,6 +187,7 @@ async function callSendAPI(sender_psid, response) {
   .query({access_token: process.env.FB_PAGE_TOKEN})
   .set({ "Content-Type": "application/json" })
   .send(JSON.stringify(request_body))
+  .expect(200)
   .end((err, res) => {
     console.log(err);
     console.log("Elküldtem");
