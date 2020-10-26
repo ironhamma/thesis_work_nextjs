@@ -188,6 +188,7 @@ async function callSendAPI(sender_psid, response) {
   .set({ "Content-Type": "application/json" })
   .send(JSON.stringify(request_body))
   .end((err, res) => {
+    console.log(err);
     console.log("Elküldtem");
     console.log(res);
   });
