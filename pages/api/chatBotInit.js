@@ -1,5 +1,5 @@
 import request from "request";
-import "superagent";
+import superagent from "superagent";
 
 let messagingPhase = 0;
 
