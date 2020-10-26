@@ -187,7 +187,10 @@ async function callSendAPI(sender_psid, response) {
   .query({access_token: process.env.FB_PAGE_TOKEN})
   .set({ "Content-Type": "application/json" })
   .send(JSON.stringify(request_body))
-  .expect(200)
+  .timeout({
+    response: 1000,  // Wait 5 seconds for the server to start sending,
+    deadline: 10000, // but allow 1 minute for the file to finish loading.
+  })
   .end((err, res) => {
     console.log(err);
     console.log("Elküldtem");
