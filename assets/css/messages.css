@@ -4,6 +4,21 @@ body, html, *{
     box-sizing: border-box;
 }
 
+.disabledUser{
+  background-color: lightgray !important;
+  color: black;
+}
+
+.activeUser{
+  background-color: blue !important;
+  color: white;
+  cursor: pointer;
+}
+
+.nonActiveUser{
+  cursor: pointer;
+}
+
 .messageUsersPanel{
   width: 15rem;
   height: 100vh;

@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar/index";
 import { connectToDatabase } from '../util/mongodb';
 import io from 'socket.io-client';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { withIronSession } from 'next-iron-session';
 
 export const getServerSideProps = withIronSession(
@@ -30,20 +30,43 @@ export const getServerSideProps = withIronSession(
       password: process.env.APPLICATION_SECRET
     }
   );
+  const socket = io();
 
 function MessagesPage({users, user}) {
 
-    const socket = io();
-    const [messages, setMessages] = useState([]);
-    const [userMessage, setUserMessage] = useState("");
-    socket.on('send', data => {
-        console.log(data);
-        let tmp = messages;
-        tmp.push({text: data.message});
-        setMessages(tmp);
+    const [messageState, setMessageState] = useState({message: '', from: user.userName, to: ''});
+    const [chatState, setChatState] = useState([]);
+    const [selectedUser, setSelectedUser] = useState('');
+
+    useEffect(() => {
+      socket.on(`message${user.userName}`, ({ from, to, message}) => {
+        console.log(`${from} - ${to} - ${message}`);
+        if(from === selectedUser){
+          setChatState([...chatState, {from, to, message}]);
+        }
+      });
     });
-    console.log(messages);
-    console.log(userMessage);
+
+    const onTextChange = e => {
+      setMessageState({...messageState, [e.target.name]: e.target.value });
+    };
+
+    const onMessageSubmit = e => {
+      e.preventDefault();
+      const { from, to, message } = messageState;
+      socket.emit('message', {from: user.userName, to: selectedUser, message});
+      setMessageState({message: '', from: user.userName, to: selectedUser});
+    };
+
+    const renderChat = () => {
+      return chatState.map(({from, to, message}, index) => (
+        <div key={index}>
+          {from === selectedUser && <h3>
+            {from}: <span>{message}</span>
+          </h3>}
+        </div>
+      ))
+    };
 
   return (
     <div className="container">
@@ -51,8 +74,12 @@ function MessagesPage({users, user}) {
                 <h1>Üzeneteim of {user.userName}</h1>
                 <ul>
                     {
-                        users.map((e) => (
-                            <li>
+                        users.map((e) => e.userName === user.userName ? (
+                            <li className="disabledUser">
+                                {e.userName}
+                            </li>
+                        ) : (
+                            <li onClick={() => setSelectedUser(e.userName)} className={e.userName === selectedUser ? "activeUser" : "nonActiveUser"}>
                                 {e.userName}
                             </li>
                         ))
@@ -61,19 +88,11 @@ function MessagesPage({users, user}) {
             </div>
             <div className="messageBodyContainer">
                 <div className="messagesBody">
-                    {
-                        messages.map((e) => (
-                            <div className="message">
-                                <div className="messageText">
-                                    {e.text}
-                                </div>
-                            </div>
-                        ))
-                    }
+                    {renderChat()}
                 </div>
-                <form>
-                    <input type="text" onChange={(e) => setUserMessage(e.target.value)}/>   
-                    <div onClick={() => socket.emit('receive', userMessage)}>Küldés</div>
+                <form onSubmit={onMessageSubmit}>
+                    <input type="text" onChange={e => onTextChange(e)} name="message" value={messageState.message} />   
+                    <button type="submit">Küldés</button>
                 </form>
             </div>
         </div>

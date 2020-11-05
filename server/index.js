@@ -14,12 +14,10 @@ io.on('connection', (socket) => {
         message: 'Socket.io is on 😏'
     });
 
-    socket.on('receive', (msg) => {
-        socket.emit('send', {
-            message: msg + ' from socket'
-        });
-        console.log('message: ' + msg);
-    })
+    socket.on('message', ({from, to, message}) => {
+        console.log(from + to);
+        io.emit(`message${to}`, {from, to, message});
+    });
 
     socket.on('disconnect', () => {
         console.log('socket disconnected');
