@@ -1,0 +1,41 @@
+.root{
+    width: 100%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5rem;
+    position: relative;
+}
+
+.root h2{
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid black;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.text{
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.date{
+    width: 100%;
+    font-size: 1.5rem;
+    align-self: flex-end;
+    margin: 0;
+    margin-top: 2rem;
+    text-align: right;
+}
+
+.buttonWrapper{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

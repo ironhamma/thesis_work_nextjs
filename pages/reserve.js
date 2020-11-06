@@ -1,7 +1,29 @@
 import Sidebar from "../components/Sidebar/index";
-import TableEntry from "../components/TableEntry/index";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { withIronSession } from 'next-iron-session';
+import PageTitle from '../components/PageTitle';
+import styles from "./ReservePage.module.css";
+import { connectToDatabase } from '../util/mongodb';
+import {Calendar, dateFnsLocalizer } from "react-big-calendar";
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import startOfWeek from 'date-fns/startOfWeek';
+import getDay from 'date-fns/getDay';
+import Select from "react-select";
+import { useRouter } from "next/router";
+import Button from "../components/Button";
+const locales = {
+  'en-US': require('date-fns/locale/en-GB'),
+};
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
 export const getServerSideProps = withIronSession(
   async({req, res}) => {
@@ -13,9 +35,14 @@ export const getServerSideProps = withIronSession(
       return { props: {}};
     }
 
+    const { db } = await connectToDatabase();
+    const reservations = await db.collection('reservations').find({}).toArray();
+    const bands = await db.collection('bands').find({users: {user: user.userName}}).toArray();
     return {
       props: {
-        user
+        user,
+        reservations: JSON.stringify(reservations),
+        bands: JSON.stringify(bands)
       }
     }
   },{
@@ -27,70 +54,59 @@ export const getServerSideProps = withIronSession(
   }
 );
 
-function ReservePage({user}) {
-    const tableContent = [
-        {
-          day: 0,
-          hour: 3,
-          name: "Random zenekar",
-          status: "reserved",
-          length: "single",
-          duration: 1,
-        },
-        {
-          day: 2,
-          hour: 5,
-          name: "Random zenekar2",
-          status: "accepted",
-          length: "double",
-          duration: 2,
-        },
-        {
-          day: 1,
-          hour: 2,
-          name: "Random zenekar3",
-          status: "pending",
-          length: "double",
-          duration: 2,
-        },
-        {
-          day: 4,
-          hour: 4,
-          name: "Random zenekar4",
-          status: "accepted",
-          length: "triple",
-          duration: 3,
-        },
-      ];
-    
-      const tableRender = [];
-      for (let x = 0; x < 8; x++) {
-        let col = [];
-        for (let i = 0; i < 24; i++) {
-          let had = false;
-          tableContent.forEach((el) => {
-            if (el.day + 1 === x && el.hour === i) {
-              col.push(el);
-              had = true;
-              if (el.length !== 1) {
-                i += el.duration - 1;
-              }
-            }
-          });
-          if (!had) {
-            col.push([]);
-          }
-        }
-        tableRender.push(col);
-      }
-    
-      const [selected, setSelected] = useState([]);
-      console.log(user);
+function ReservePage({user, reservations, bands}) {
+  const router = useRouter();
+  const reservationData = JSON.parse(reservations);
+  const bandsData = JSON.parse(bands);
+  const bandOptions = bandsData.map(e => ({
+    value: e.bandName,
+    label: e.bandName
+  }));
+
+  const [selectedBand, setSelectedBand] = useState({selected: false, band: ""});
+
+  const [events, setEvents] = useState(reservationData.map(e => ({
+    title: e.bandName,
+    start: new Date(e.reserveStartDate),
+    end: new Date(e.reserveEndDate)
+  })));
+
+
+  const onDragEnd = async (dragevent) => {
+    console.log(dragevent.start);
+    console.log(dragevent.end);
+
+    setEvents([...events, {
+      title: selectedBand.band,
+      start: dragevent.start,
+      end: dragevent.end
+    }]);
+
+    const mappedInput = {
+      start: dragevent.start,
+      end: dragevent.end,
+      bandName: selectedBand.band,
+      user: user.userName
+    };
+
+    const response = await fetch("/api/reservation/makeReservation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...mappedInput }),
+    });
+
+    if (response.ok) {
+      return router.push("/reserve");
+    }
+  
+    console.log(events);
+  }
+
   return (
     <div className="pageContainer">
-      <Sidebar />
-      <div className="mainSection">
-        <h1 className="pageTitle">Foglalás {user.userName}</h1>
+      <Sidebar user={user}/>
+      <div className={styles.root}>
+        <PageTitle>Foglalás</PageTitle>
         <div className="containerFlex">
           <div className="reserveHead">
             <p>
@@ -105,32 +121,25 @@ function ReservePage({user}) {
             </p>
           </div>
           <div className="reserveSelect">
-            <span>Kinek a nevében foglalod?</span>
+            <span>Melyik zenekarodnak foglalod?</span>
             <form>
-              <select name="reserveSelect" id="reserveSelect">
-                <option value="szabobeno">Szabó Benedek (szabobeno)</option>
-                <option value="szabobeno2">Szabó Benedek (szabobeno2)</option>
-                <option value="szabobeno3">Szabó Benedek (szabobeno3)</option>
-              </select>
-              <button type="submit">Küldés</button>
+              <Select options={bandOptions} onChange={(e) => setSelectedBand({selected: true, band: e.value})}/>
             </form>
           </div>
-          <div className="reserveTableContainer">
-            <div className="reserveTable" onClick={console.log(selected)}>
-              {tableRender.map((col, index) => (
-                <div className="reserveTable__col" key={index}>
-                  <div className="reserveTable__colHead">Óra</div>
-                  {col.map((entry, id) => (
-                    <TableEntry 
-                      item={entry}
-                      key={id}
-                      index={index}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+            <Calendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ width: "100%" }}
+              defaultView="week"
+              onSelectEvent={(event) => console.log(event)}
+              onSelectSlot={onDragEnd}
+              views={['week']}
+              selectable={selectedBand.selected}
+              step={60}
+              timeslots={1}
+            />
         </div>
       </div>
     </div>

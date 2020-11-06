@@ -1,11 +1,40 @@
 import Sidebar from "../components/Sidebar/index";
+import { withIronSession } from 'next-iron-session';
+import { connectToDatabase } from '../util/mongodb';
+import PageTitle from '../components/PageTitle';
+import styles from "./RulesPage.module.css";
 
-function AboutPage() {
+export const getServerSideProps = withIronSession(
+  async({req, res}) => {
+    const user = req.session.get('user');
+      
+    if(!user) {
+      return { props: {}};
+    }
+    const { db } = await connectToDatabase();
+
+    const users = await db.collection('users').find({}).toArray();
+    return {
+      props: {
+        users: JSON.parse(JSON.stringify(users)),
+        user
+      }
+    }
+  },{
+    cookieName: "USERCOOKIE",
+    cookieOptions: {
+      secure: process.env.NODE_ENV === "production" ? true : false
+    },
+    password: process.env.APPLICATION_SECRET
+  }
+);
+
+function RulesPage({user}) {
   return (
     <div className="pageContainer">
-      <Sidebar />
-      <div className="mainSection">
-        <h1 className="pageTitle">Szabályzat</h1>
+      <Sidebar user={user} />
+      <div className={styles.root}>
+        <PageTitle>Szabályzat</PageTitle>
         <div className="containerFlex">
           <div className="ruleContainer">
             <div className="title">
@@ -274,4 +303,4 @@ function AboutPage() {
   );
 }
 
-export default AboutPage;
+export default RulesPage;

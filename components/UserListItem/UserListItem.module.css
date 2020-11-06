@@ -1,0 +1,53 @@
+.root{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    padding: 2rem 0;
+    align-items: center;
+}
+
+.root:last-of-type{
+    border-bottom: none;
+}
+
+.name{  
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.subDataContainer{
+    display: flex;
+    flex-direction: column;
+    height: 7rem;
+    flex-wrap: wrap;
+    margin-left: 1rem;
+}
+
+.subData{
+    font-size: 1.5rem;
+    min-width: 15rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 2rem;
+    font-weight: bold;
+    align-items: center;
+}
+
+.subData span{
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+}
+
+.adminBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.adminBox b{
+    margin-bottom: 1rem;
+}

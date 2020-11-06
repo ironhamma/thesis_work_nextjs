@@ -2,6 +2,9 @@ import Sidebar from "../../components/Sidebar";
 import { withIronSession } from "next-iron-session";
 import { connectToDatabase } from "../../util/mongodb";
 import { useRouter } from "next/router";
+import PageTitle from "../../components/PageTitle";
+import styles from "./UsersPage.module.css";
+import UserList from "../../components/UserList";
 
 export const getServerSideProps = withIronSession(
   async ({ req, res }) => {
@@ -59,36 +62,15 @@ function UsersPage({ userArray, user }) {
 
   return (
     <div className="pageContainer">
-      <Sidebar />
-      <div className="mainSection">
-        <h1 className="pageTitle">Felhasználók</h1>
+      <Sidebar user={user} />
+      <div className={styles.root}>
+        <PageTitle>Felhasználók</PageTitle>
         <div className="containerFlex">
-          <ul>
-            {userArray.map((e, index) =>
-              e.isAdmin ? (
-                e.userName === user.userName ? (
-                  <li key={index}>
-                    <span>{e.userName}</span>
-                    <b>IS ADMIN</b>
-                  </li>
-                ) : (
-                  <li key={index}>
-                    <span>{e.userName}</span>
-                    <button onClick={() => toggleRole(e.userName)}>
-                      Admin jog elvétele
-                    </button>
-                  </li>
-                )
-              ) : (
-                <li key={index}>
-                  <span>{e.userName}</span>
-                  <button onClick={() => toggleRole(e.userName)}>
-                    Admin jog megadása
-                  </button>
-                </li>
-              )
-            )}
-          </ul>
+          <UserList
+            currentUser={user.userName}
+            onChildrenClick={toggleRole}
+            users={userArray}
+          />
         </div>
       </div>
     </div>

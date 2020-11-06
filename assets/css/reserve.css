@@ -1,154 +1,22 @@
-.reserveHead{
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
+.reserveHead {
+  font-family: "Roboto", sans-serif;
+  width: 100%;
 }
 
-.reserveSelect{
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 3rem;
+.reserveSelect {
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-.reserveSelect span{
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.reserveSelect span {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.reserveSelect select{
-    padding: .5rem;
-}
-
-.reserveSelect button{
-    padding: .5rem;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    transition: .3s all;
-    cursor: pointer;
-}
-
-.reserveSelect button:hover{
-    background-color: darkseagreen;
-    color: white;
-}
-
-.reserveTableContainer{
-    width: 80%;
-    margin: 0 auto;
-    position: relative;
-}
-
-.reserveTable{
-    background-color: white;
-    border-radius: 5px;
-    border: 2px solid black;
-    padding: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: flex-start;
-    width: 100%;
-    position: relative;
-    max-height: 45rem;
-    overflow: auto;
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 2rem;
-}
-
-.reserveTable.disabled{
-    background-color: rgb(238, 238, 238);
-}
-
-.reserveTable.disabled *{
-    color: rgb(185, 185, 185) !important;
-    background-color:  rgb(238, 238, 238) !important;
-}
-
-.reserveTable.disabled .reserveTable__item{
-    background-color: rgb(194, 194, 194) !important;
-}
-
-.reserveTable.disabled .reserveTable__item *{
-    background-color: rgb(194, 194, 194) !important;
-    color: rgb(228, 228, 228) !important;
-}
-
-.reserveTable__col{
-    width: calc(100% / 8);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.reserveTable__colHead{
-    width: 100%;
-    text-align: center;
-    font-size: 1.75rem;
-    border-bottom: 1px solid black;
-}
-
-.reserveTable__col > div:not(.reserveTable__colHead){
-    padding: .5rem .5rem;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid rgb(163, 163, 163);
-    border-left: 1px solid rgb(163, 163, 163);
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.reserveTable__col:last-of-type > div:not(.reserveTable__colHead){
-    border-right: 1px solid rgb(163, 163, 163);
-}
-
-.reserveTable__item p{
-    margin: 0;
-    text-align: left;
-    font-size: .8rem;
-}
-
-.reserveTable__item{
-    padding: .5rem;
-    width: 100%;
-    height: 100%;
-    color: white;
-    border-radius: 10px;
-    border: 2px solid black;
-}
-
-.reserveTable__item.reserved{
-    background-color: teal;
-}
-
-.reserveTable__item.accepted{
-    background-color: darkseagreen;
-}
-
-.reserveTable__item.pending{
-    background-color: coral;
-}
-
-.singleEntry{
-    height: 5rem;
-}
-
-.doubleEntry{
-    height: 10rem;
-}
-
-.tripleEntry{
-    height: 15rem ;
-}
-
-.reserveTable__col:not(:first-of-type) > div:not(.reserveTable__colHead):empty:hover{
-    background-color: darkgray;
-}
-
-.selectedEntry{
-    background-color: yellow;
+.reserveTableContainer {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
 }

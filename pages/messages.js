@@ -40,7 +40,6 @@ function MessagesPage({users, user}) {
 
     useEffect(() => {
       socket.on(`message${user.userName}`, ({ from, to, message}) => {
-        console.log(`${from} - ${to} - ${message}`);
         if(from === selectedUser){
           setChatState([...chatState, {from, to, message}]);
         }

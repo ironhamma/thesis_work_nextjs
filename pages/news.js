@@ -1,7 +1,15 @@
 import Sidebar from "../components/Sidebar/index";
 import { connectToDatabase } from "../util/mongodb";
 import { withIronSession } from "next-iron-session";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import Button from "../components/Button";
+import Input from "../components/Input";
+import NewsItem from "../components/NewsItem";
+import PageTitle from "../components/PageTitle";
+import styles from "./NewsPage.module.css";
+import { Controller, useForm } from "react-hook-form";
+import { useState } from "react";
+import Spacer from "../components/Spacer";  
 
 export const getServerSideProps = withIronSession(
   async ({ req, res }) => {
@@ -27,42 +35,94 @@ function NewsPage(props) {
   const newsArray = JSON.parse(props.news);
   const user = JSON.parse(props.user);
   const router = useRouter();
+  const [newsAddOpen, setNewsAddOpen] = useState(false);
 
   const handleDelete = async (e, newsId) => {
     e.preventDefault();
     const response = await fetch("/api/news/deleteNews", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({newsId: newsId})
+      body: JSON.stringify({ newsId: newsId }),
     });
 
-    if(response.ok){
+    if (response.ok) {
       return router.push("/news");
     }
-  }
+  };
 
-  console.log(newsArray);
+  const { handleSubmit, errors, reset, control } = useForm({
+    defaultValues: {
+      newsText: "",
+      newsHeading: "",
+    },
+  });
+  const onNewsSubmit = async (result) => {
+    reset();
+    setNewsAddOpen(false);
+    const response = await fetch("/api/news/addNews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        newsText: result.newsText,
+        newsHeading: result.newsHeading,
+      }),
+    });
+
+    if (response.ok) {
+      return router.push("/news");
+    }
+  };
 
   return (
-    <div className="pageContainer">
-      <Sidebar />
-      <div className="mainSection">
-        <h1 className="pageTitle">Hírek</h1>
+    <div>
+      <Sidebar user={user} />
+      <div className={styles.root}>
+        <PageTitle>Hírek</PageTitle>
         <div className="newsFlex">
           {newsArray.map((e, index) => (
-            <div className="newsItem" key={index}>
-              <h2 className="newsItem__title">{e.heading}</h2>
-                {user.isAdmin ? 
-                (
-                <div>
-                  <button onClick={(event) => handleDelete(event, e._id)}>Delete</button>
-                </div>
-                ) : (<div></div>)}
-              <p className="newsItem__text">{e.text}</p>
-              <p className="newsItem__date">{e.created_at}</p>
-            </div>
+            <NewsItem
+              newsElement={e}
+              isAdmin={user.isAdmin}
+              index={index}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
+        {user.isAdmin && (
+          <>
+            {newsAddOpen && (
+              <form>
+                <Controller
+                  name="newsHeading"
+                  title="Hír címe"
+                  control={control}
+                  as={Input}
+                />
+                <Controller
+                  name="newsText"
+                  title="Hír szövege"
+                  control={control}
+                  as={Input}
+                />
+              </form>
+            )}
+            {newsAddOpen ? (
+              <>
+                <Button capital onClick={handleSubmit(onNewsSubmit)}>
+                  Submit news
+                </Button>
+                <Spacer x={1} />
+                <Button capital onClick={() => setNewsAddOpen(false)}>
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <Button capital onClick={() => setNewsAddOpen(true)}>
+                Add news
+              </Button>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

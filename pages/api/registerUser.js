@@ -2,7 +2,6 @@ import {connectToDatabase} from '../../util/mongodb';
 
 export default async(req, res) => {
 
-    console.log(req.method);
     const {db} = await connectToDatabase();
     await db.collection('users').insertOne({
         userName: req.body.userName,
@@ -19,7 +18,6 @@ export default async(req, res) => {
         if(err) throw err;
         console.log(`${req.body.userName} document inserted!`);
     });
-    console.log(req.body);
 
     return res.status(200).send("OK");
 }

@@ -1,7 +1,6 @@
 body, html{
     padding: 0;
     margin: 0;
-    overflow: hidden;
     font-family: 'Bebas Neue', cursive;
 }
 
@@ -133,43 +132,14 @@ body, html{
 .pageContainer{
     position: relative;
     width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.sideBar{
-    width: 100%;
-    height: 5rem;
-    background-color: black;
-    color: white;
-    transition: .3s all;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: flex-start;
-}
-
-.sideBarLogo{
-    align-self: flex-end;
-    margin-bottom: 1rem;
-    width: 100%;
-    text-align: center;
-}
-
-.sideBarLogo img{
-    width: 8rem;
 }
 
 .mainSection{
     width: 100%;
-    height: calc(100vh - 5rem);
     overflow: auto;
     transition: .3s all;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    padding: 0 5rem;
+    margin: 0 auto;
 }
 
 .sideBarToggle{
@@ -183,34 +153,6 @@ body, html{
     cursor: pointer;
 }
 
-.sideBar ul{
-    opacity: 1;
-    list-style: none;
-    padding-left: 0;
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-}
-
-.sideBar ul img{
-    height: 3rem;
-}
-
-.sideBar ul a{
-    color: white;
-    text-decoration: none;
-}
-
-.sideBar ul a li{
-    font-size: 1.5rem;
-    margin-top: 1rem;
-}
-
-.pageTitle{
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
 .newsFlex{
     width: 100%;
     display: flex;
@@ -218,38 +160,6 @@ body, html{
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-}
-
-.newsItem{
-    width: 80%;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 5rem;
-}
-
-.newsItem__title{
-    padding: 0;
-    margin: 0;
-    border-bottom: 2px solid black;
-    font-size: 1.75rem;
-}
-
-.newsItem__text{
-    width: 100%;
-    font-size: 1.5rem;
-}
-
-.newsItem__date{
-    width: 100%;
-    font-size: 1.5rem;
-    align-self: flex-end;
-    margin: 0;
 }
 
 .containerFlex{
@@ -376,48 +286,4 @@ body, html{
 
 .profileInfoBox > form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding: 0 1rem 0 0 ;
-}
-
-.profileInfoBox > form > input{
-    width: 100%;
-    margin-bottom: 1.5rem;
-    padding: .5rem;
-    border-radius: 4px;
-    border: 1px solid black;
-}
-
-.profileInfoBox > form > div{
-    width: 100%;
-    margin-bottom: 1.5rem;
-    padding: .5rem;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.profileInfoBox > form > div > span{
-    float: right;
-}
-
-.profileInfoBox > form > label{
-    text-align: left;
-    width: 100%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.profileInfoBox > form > button{
-    align-self: flex-start;
-    background-color: white;
-    border: 1px solid black;
-    padding: .5rem;
-    cursor: pointer;
-    transition: .3s all;
-}
-
-.profileInfoBox > form > button:hover{
-    background-color: black;
-    color: white;
 }

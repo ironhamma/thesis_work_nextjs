@@ -15,7 +15,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('message', ({from, to, message}) => {
-        console.log(from + to);
         io.emit(`message${to}`, {from, to, message});
     });
 

@@ -64,21 +64,22 @@ async function handleMessage(sender_psid, received_message) {
       response = {
         text: `Mivel a ${userWithName.userName} fiókkal még nem foglaltál itt, létrehoztunk neked egy foglalási számot. Ezt az MMMK oldalon találod a profilodban. Kérlek add meg!`
       };
-      await db.collection('users').updateOne({"userName": received_message.text}, {$set: {"reserveId": sender_psid, "reserveCode": Math.floor(1000 + Math.random() * 9000), "fbLoggingIn": true}});
+      await db.collection('users').updateOne({"userName": received_message.text}, {$set: {"reserveId": sender_psid, "reserveCode": Math.floor(1000 + Math.random() * 9000).toString(), "fbLoggingIn": true}});
     }
   
   if(userWithId !== null && !userWithId.fbLoggingIn){
     response = {
       text: `Kérlek add meg a ${userWithId.userName} fiókhoz tartozó foglalási számodat!`
     };
-    await db.collection('users').updateOne({"userName": received_message.text}, {$set: {"fbLoggingIn": true}});
+    await db.collection('users').updateOne({"reserveId": sender_psid}, {$set: {"fbLoggingIn": true}});
   }
   
   if(userWithId !== null && userWithId.fbLoggingIn){
     const reservepass = await db.collection('users').findOne({"reserveId": sender_psid});
     console.log(parseInt(received_message.text));
     if(!isNaN(parseInt(received_message.text))){
-      if(parseInt(received_message.text) === reservepass.reserveCode){
+      console.log(received_message.text);
+      if(parseInt(received_message.text) === parseInt(reservepass.reserveCode)){
         response = {
           attachment: {
             type: "template",

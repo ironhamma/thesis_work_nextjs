@@ -1,17 +1,22 @@
 import { connectToDatabase } from "../../../util/mongodb";
 import {ObjectId} from "mongodb";
 
+
 export default async (req, res) => {
   const { db } = await connectToDatabase();
+  console.log(req.body);
 
+    const {_id, ...rest} = req.body;
 
-  await db.collection("news").deleteOne(
-    { _id: ObjectId(req.body.newsId)},
+    const updateData = rest;
+
+  await db.collection("users").updateOne(
+    { _id: ObjectId(_id) },
+    { $set: { ...updateData } },
     function (err, res) {
       if (err) throw err;
-      console.log("doc deleted");
     }
   );
 
-  res.status(200).send("news deleted");
+  res.status(200).send("updated");
 };
