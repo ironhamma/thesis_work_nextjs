@@ -1,18 +1,22 @@
 import styles from "./UserListItem.module.css";
 import cn from "clsx";
 import Button from "../Button";
+import {USER_TYPES} from "../../util/consts";
 
 function UserListItem({ onClick, user, currentUser, index }) {
   const permissionText =
     currentUser === user.userName ? (
-      <b>Admin</b>
-    ) : user.isAdmin ? (
+      <b>{USER_TYPES.find(e => e.id === user.userType).title}</b>
+    ) : [2,3].includes(user.userType) ? (
         <div className={styles.adminBox}>
-            <b>Admin</b>
+            <b>{USER_TYPES.find(e => e.id === user.userType).title}</b>
             <Button onClick={() => onClick(user.userName)}>Admin jog elvétele</Button>
         </div>
     ) : (
-      <Button onClick={() => onClick(user.userName)}>Admin jog megadása</Button>
+      <div className={styles.adminBox}>
+        <b>{USER_TYPES.find(e => e.id === user.userType).title}</b>
+        <Button onClick={() => onClick(user.userName)}>Admin jog megadása</Button>
+      </div>
     );
     console.log(user);
   return (

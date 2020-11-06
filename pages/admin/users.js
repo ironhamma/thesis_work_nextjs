@@ -22,7 +22,7 @@ export const getServerSideProps = withIronSession(
       .collection("users")
       .findOne({ userName: user.userName });
 
-    if (!sessUser.isAdmin) {
+    if (![1,2,3].includes(sessUser.userType)) {
       res.statusCode = 403;
       res.end();
       return { props: {} };

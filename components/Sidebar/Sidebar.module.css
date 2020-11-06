@@ -11,8 +11,42 @@
     position: relative;
 }
 
+.superAdminSidebar{
+    background-color: rgba(109, 0, 0, 0.863) !important;
+    height: 3rem !important;
+    padding: 0 2rem;
+}
+
+.superAdminSidebar::after{
+    content: "SUPERADMIN";
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 600;
+}
+
+.openerSidebar{
+    background-color: rgba(4, 109, 0, 0.863) !important;
+    height: 3rem !important;
+    padding: 0 2rem;
+}
+
+.openerSidebar::after{
+    content: "BEENGEDŐ";
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 600;
+}
+
 .adminSidebar{
-    background-color: red !important;
+    background-color: rgba(206, 99, 0, 0.788) !important;
     height: 3rem !important;
     padding: 0 2rem;
 }
@@ -28,7 +62,7 @@
     font-weight: 600;
 }
 
-.adminSidebar ul{
+.adminSidebar ul, .superAdminSidebar ul, .openerSidebar ul{
     justify-content: left !important;
 }
 

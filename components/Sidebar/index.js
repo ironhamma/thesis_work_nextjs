@@ -6,8 +6,8 @@ import cn from 'clsx';
 function Sidebar({user}) {
   return (
     <>
-    {user.isAdmin &&
-      <div className={cn(styles.sidebar, {[styles.adminSidebar]: user.isAdmin})}>
+    {[1,2,3].includes(user.userType) &&
+      <div className={cn(styles.sidebar, {[styles.superAdminSidebar]: user.userType === 1, [styles.adminSidebar]: user.userType === 2, [styles.openerSidebar]: user.userType === 3})}>
         <ul>
           <Link href="/admin/users">
             <a>

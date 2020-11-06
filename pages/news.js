@@ -82,13 +82,13 @@ function NewsPage(props) {
           {newsArray.map((e, index) => (
             <NewsItem
               newsElement={e}
-              isAdmin={user.isAdmin}
+              isAdmin={user.userType === 1}
               index={index}
               onDelete={handleDelete}
             />
           ))}
         </div>
-        {user.isAdmin && (
+        {user.userType === 1 && (
           <>
             {newsAddOpen && (
               <form>

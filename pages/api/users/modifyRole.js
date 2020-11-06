@@ -11,7 +11,7 @@ export default async (req, res) => {
 
   await db.collection("users").updateOne(
     { _id: ObjectId(user._id) },
-    { $set: { isAdmin: !user.isAdmin } },
+    { $set: { userType: [1,2,3].includes(user.userType) ? 4 : 1 } },
     function (err, res) {
       if (err) throw err;
     }
