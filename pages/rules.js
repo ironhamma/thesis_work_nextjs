@@ -33,7 +33,6 @@ export const getServerSideProps = withIronSession(
 );
 
 function RulesPage({user}) {
-  console.log(user);
   return (
     <div className={styles.pageContainer}>
       <Sidebar user={user} />

@@ -3,8 +3,6 @@ import {connectToDatabase} from '../../../util/mongodb';
 export default async(req, res) => {
     const {db} = await connectToDatabase();
 
-    console.log(req.body);
-    
     await db.collection('reservations').insertOne({
         created_at: new Date(),
         reserveStartDate: req.body.start,

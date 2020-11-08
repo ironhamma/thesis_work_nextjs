@@ -17,7 +17,6 @@ function UserListItem({ onClick, user, currentUser, index }) {
         <Button onClick={() => onClick(user.userName)}>Jogkör emelése</Button>
       </div>
     );
-    console.log(user);
   return (
     <li className={styles.root} key={index}>
       <div>

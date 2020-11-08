@@ -68,7 +68,6 @@ function ProfilePage({ user, sessUser }) {
   });
 
   const onDataSubmit = async (result) => {
-    console.log(sessUser);
     const updateData = {_id: sessUser._id, ...result}
     const response = await fetch("/api/users/modifyUser", {
       method: "POST",
@@ -80,8 +79,6 @@ function ProfilePage({ user, sessUser }) {
       return router.push("/profile");
     }
   }
-
-  console.log(sessUser.reserveCode);
 
   return (
     <div className={styles.pageContainer}>

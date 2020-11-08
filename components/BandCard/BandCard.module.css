@@ -1,0 +1,68 @@
+.root{
+    min-width: 20rem;
+    min-height: 35rem;
+    box-shadow: 0px 0px 10px rgb(179, 179, 179);
+    border-radius: 5px;
+    position: relative;
+    margin-right: 4rem;
+    margin-bottom: 5rem;
+    padding-bottom: 13rem;
+}
+
+.head{
+    min-height: 6.25rem;
+    background-color: black;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.bandName{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 7rem;
+    color: white;
+    white-space: nowrap;
+    transition: all 500ms ease-in-out;
+}
+
+.root:hover .bandName{
+    font-size: 2.5rem;
+    transform: translate(-50%, -90%);
+}
+
+.root h2{
+    width: calc(100% - 2rem);
+    padding-bottom: .25rem;
+    margin: 1rem 1rem 1rem 1rem;
+    border-bottom: 2px solid black;
+}
+
+.root ul{
+    padding: 0 1rem 1rem 1rem;
+    list-style: none;
+}
+
+.root ul li{
+    font-size: 1.25rem;
+    margin: 0 0 .5rem .5rem;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+}
+
+.editButton{
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+}
+
+.editButton button{
+    width: 100%;
+    margin-top: 1rem;
+}

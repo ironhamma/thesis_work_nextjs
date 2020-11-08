@@ -68,6 +68,11 @@ function Sidebar({user}) {
                     <li>Üzenetek</li>
                   </a>
                 </Link>
+                <Link href="/bands">
+                <a>
+                  <li>Zenekarjaim</li>
+                </a>
+                </Link>
                 <Link href="/profile">
                   <a>
                     <li>Profilom</li>
