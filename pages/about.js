@@ -3,10 +3,14 @@ import { connectToDatabase } from '../util/mongodb';
 import Sidebar from "../components/Sidebar/index";
 import PageTitle from '../components/PageTitle';
 import styles from "./AboutPage.module.css";
+import cn from "clsx";
 
 export const getServerSideProps = withIronSession(
   async({req, res}) => {
-    const user = req.session.get('user');
+    let user = req.session.get('user');
+    if(user === undefined){
+      user = null;
+    }
       
     if(!user) {
       return { props: {}};
@@ -31,19 +35,19 @@ export const getServerSideProps = withIronSession(
 
 function AboutPage({user}) {
   return (
-    <div className="pageContainer">
+    <div className={styles.pageContainer}>
       <Sidebar user={user} />
       <div className={styles.root}>
         <PageTitle>Rólunk</PageTitle>
-        <div className="containerFlex">
+        <div className={styles.containerFlex}>
           <img
-            className="aboutImg"
+            className={styles.aboutImg}
             src="/group.jpg"
             alt=""
             onClick={() => alert("hello")}
           />
-          <div className="aboutBack half">
-            <div className="aboutText">
+          <div className={cn(styles.aboutBack ,styles.half)}>
+            <div className={styles.aboutText}>
               <h1>Muzsika Mívelő Mérnökök Klubja</h1>
               Az MMMK lényegében egy zenekari próbatermet üzemeltet a kollégium
               első emeletén, a 119-es teremben, ami fel van szerelve sok jó
@@ -58,18 +62,18 @@ function AboutPage({user}) {
               kielégíthetik vágyaikat.
             </div>
           </div>
-          <div className="aboutBack">
-            <div className="aboutText title">
+          <div className={styles.aboutBack}>
+            <div className={cn(styles.aboutText, styles.title)}>
               <h2>Körvezetőség</h2>
             </div>
-            <div className="aboutText leaders">
-              <div className="leaderFlex">
-                <div className="titles">
+            <div className={cn(styles.aboutText, styles.leaders)}>
+              <div className={styles.leaderFlex}>
+                <div className={styles.titles}>
                   <p>Körvezető:</p>
                   <p>Beengedőfőnök:</p>
                   <p>Gazdaságis:</p>
                 </div>
-                <div className="names">
+                <div className={styles.names}>
                   <p>Koenig Benedek</p>
                   <p>Szurovcsják Ádám</p>
                   <p>Várszegi Júlia</p>
@@ -78,11 +82,11 @@ function AboutPage({user}) {
               (elérhetőség lásd taglista)
             </div>
           </div>
-          <div className="aboutBack">
-            <div className="aboutText title">
+          <div className={styles.aboutBack}>
+            <div className={cn(styles.aboutText, styles.title)}>
               <h2>Eszközök</h2>
             </div>
-            <div className="aboutText items half">
+            <div className={cn(styles.aboutText, styles.items, styles.half)}>
               <h3>Ludwig dobcucc</h3>
               <h4>Testek átmérői</h4>
               <ul>
@@ -100,7 +104,7 @@ function AboutPage({user}) {
                 <li>Duplázó, Kolomp (best thing ever), Állványok mindenhez</li>
               </ul>
             </div>
-            <div className="aboutText items half">
+            <div className={cn(styles.aboutText, styles.items, styles.half)}>
               <h3>Peavey Valveking 112 Gitárerősítő Combo</h3>
               <ul>
                 <li>50 Wattos</li>
@@ -114,7 +118,7 @@ function AboutPage({user}) {
                 <li>Zengető</li>
               </ul>
             </div>
-            <div className="aboutText items half">
+            <div className={cn(styles.aboutText, styles.items, styles.half)}>
               <h3>Line6 Spider III 120 Gitárerősítő Combo</h3>
               <ul>
                 <li>Digitális</li>
@@ -133,7 +137,7 @@ function AboutPage({user}) {
                 <li>2 db 10-es Custom Celestion hangszóró</li>
               </ul>
             </div>
-            <div className="aboutText items half">
+            <div className={cn(styles.aboutText, styles.items, styles.half)}>
               <h3>Gallien-Krueger Backline 600 Basszus erősítőfej</h3>
               <ul>
                 <li>300 Watt @ 4 ohm</li>
@@ -144,7 +148,7 @@ function AboutPage({user}) {
                 <li>XLR, hangoló kimenet</li>
               </ul>
             </div>
-            <div className="aboutText items half">
+            <div className={cn(styles.aboutText, styles.items, styles.half)}>
               <h3>Gallien-Krueger GLX Basszusláda</h3>
               <ul>
                 <li>400 Watt @ 8 ohm</li>

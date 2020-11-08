@@ -3,6 +3,7 @@ import { connectToDatabase } from '../util/mongodb';
 import io from 'socket.io-client';
 import {useState, useEffect} from 'react';
 import { withIronSession } from 'next-iron-session';
+import styles from "./MessagesPage.module.css";
 
 export const getServerSideProps = withIronSession(
     async({req, res}) => {
@@ -68,25 +69,25 @@ function MessagesPage({users, user}) {
     };
 
   return (
-    <div className="container">
-            <div className="messageUsersPanel">
+    <div className={styles.container}>
+            <div className={styles.messageUsersPanel}>
                 <h1>Üzeneteim of {user.userName}</h1>
                 <ul>
                     {
                         users.map((e) => e.userName === user.userName ? (
-                            <li className="disabledUser">
+                            <li className={styles.disabledUser}>
                                 {e.userName}
                             </li>
                         ) : (
-                            <li onClick={() => setSelectedUser(e.userName)} className={e.userName === selectedUser ? "activeUser" : "nonActiveUser"}>
+                            <li onClick={() => setSelectedUser(e.userName)} className={e.userName === selectedUser ? styles.activeUser : styles.nonActiveUser}>
                                 {e.userName}
                             </li>
                         ))
                     }
                 </ul>
             </div>
-            <div className="messageBodyContainer">
-                <div className="messagesBody">
+            <div className={styles.messageBodyContainer}>
+                <div className={styles.messagesBody}>
                     {renderChat()}
                 </div>
                 <form onSubmit={onMessageSubmit}>

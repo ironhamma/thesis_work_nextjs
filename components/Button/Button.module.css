@@ -17,5 +17,36 @@
 }
 
 .danger{
-    background-color: red;
+    color: #d14747;
+    border: 2px solid #8c2e2e;
+}
+
+.danger:hover{
+    background-color: #d14747;
+    border: 2px solid #8c2e2e;
+    color: white;
+}
+
+.approve{
+    color: #41d96c;
+    border: 2px solid #2e994c;
+}
+
+.approve:hover{
+    background-color: #41d96c;
+    border: 2px solid #2e994c;
+    color: white;
+}
+
+.disabled{
+    background-color: #f5f5f5;
+    color: grey;
+    border: 2px solid grey;
+    cursor: default;
+}
+
+.disabled:hover{
+    background-color: #f5f5f5;
+    color: grey;
+    border: 2px solid grey;
 }

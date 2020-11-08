@@ -1,5 +1,4 @@
 import styles from "./UserListItem.module.css";
-import cn from "clsx";
 import Button from "../Button";
 import {USER_TYPES} from "../../util/consts";
 
@@ -7,15 +6,15 @@ function UserListItem({ onClick, user, currentUser, index }) {
   const permissionText =
     currentUser === user.userName ? (
       <b>{USER_TYPES.find(e => e.id === user.userType).title}</b>
-    ) : [2,3].includes(user.userType) ? (
+    ) : [1,2,3].includes(user.userType) ? (
         <div className={styles.adminBox}>
             <b>{USER_TYPES.find(e => e.id === user.userType).title}</b>
-            <Button onClick={() => onClick(user.userName)}>Admin jog elvétele</Button>
+            <Button onClick={() => onClick(user.userName)}>Jogkör csökkentése</Button>
         </div>
     ) : (
       <div className={styles.adminBox}>
         <b>{USER_TYPES.find(e => e.id === user.userType).title}</b>
-        <Button onClick={() => onClick(user.userName)}>Admin jog megadása</Button>
+        <Button onClick={() => onClick(user.userName)}>Jogkör emelése</Button>
       </div>
     );
     console.log(user);

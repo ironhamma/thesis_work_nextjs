@@ -84,12 +84,12 @@ function ProfilePage({ user, sessUser }) {
   console.log(sessUser.reserveCode);
 
   return (
-    <div className="pageContainer">
+    <div className={styles.pageContainer}>
       <Sidebar user={user} />
       <div className={styles.root}>
         <PageTitle>Profilom</PageTitle>
-        <div className="containerFlex">
-          <div className="profileInfoBox">
+        <div className={styles.containerFlex}>
+          <div className={styles.profileInfoBox}>
             <h2>Általános adataim</h2>
               <Controller
                 name="userName"
@@ -144,7 +144,7 @@ function ProfilePage({ user, sessUser }) {
               />
               <Button onClick={handleSubmit(onDataSubmit)}>Mentés</Button>
           </div>
-          <div className="profileInfoBox">
+          <div className={styles.profileInfoBox}>
             <h2>Foglalási adataim</h2>
               <Controller
                 name="reserveCode"

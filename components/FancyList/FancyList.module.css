@@ -1,0 +1,67 @@
+.root{
+    width: 100%;
+    position: relative;
+}
+
+.root ul{
+    list-style: none;
+    width: 100%;
+    position: relative;
+}
+
+.root ul li{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1.5rem;
+    border-bottom: 1px solid black;
+    transition: .3s all;
+}
+
+.root ul li:hover{
+    box-shadow: 5px 5px 10px black;
+}
+
+.listItemNumber{
+    color: #16c6c9;
+    border: 1px solid #16c6c9;
+    border-radius: 5px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s all;
+}
+
+.root ul li:hover .listItemNumber{
+    background-color: #0c6a6b;
+    color: white;
+}
+
+.listDataSection{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 45px;
+    min-width: 5rem;
+}
+
+.listSubtitle{
+    font-size: 1rem;
+    margin-bottom: .5rem;
+    color: #778485;
+}
+
+.listData{
+    display: block;
+    font-size: 1.5rem;
+}
+
+.listButton{
+    min-width: 7rem;
+}

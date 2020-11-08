@@ -10,8 +10,9 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import Select from "react-select";
+import Spacer from "../components/Spacer";
+import FancyList from "../components/FancyList";
 import { useRouter } from "next/router";
-import Button from "../components/Button";
 const locales = {
   'en-US': require('date-fns/locale/en-GB'),
 };
@@ -64,22 +65,22 @@ function ReservePage({user, reservations, bands}) {
   }));
 
   const [selectedBand, setSelectedBand] = useState({selected: false, band: ""});
+  const [myReserve, setMyReserve] = useState(reservationData.filter(e => e.reservedBy === user.userName));
 
   const [events, setEvents] = useState(reservationData.map(e => ({
     title: e.bandName,
     start: new Date(e.reserveStartDate),
-    end: new Date(e.reserveEndDate)
+    end: new Date(e.reserveEndDate),
+    status: e.status
   })));
 
 
   const onDragEnd = async (dragevent) => {
-    console.log(dragevent.start);
-    console.log(dragevent.end);
-
     setEvents([...events, {
       title: selectedBand.band,
       start: dragevent.start,
-      end: dragevent.end
+      end: dragevent.end,
+      status: 1
     }]);
 
     const mappedInput = {
@@ -99,16 +100,38 @@ function ReservePage({user, reservations, bands}) {
       return router.push("/reserve");
     }
   
-    console.log(events);
   }
 
+  const addClass = (event) => {
+    switch (event.status){
+      case 1:
+        return {
+          className: styles.status_inprogress,
+        }
+        break;
+      case 2:
+        return {
+          className: styles.status_accepted,
+        }
+        break;
+      case 3:
+        return {
+          className: styles.status_declined,
+        }
+        break;
+      default:
+        return {}
+        break;
+    }
+  };
+
   return (
-    <div className="pageContainer">
+    <div className={styles.pageContainer}>
       <Sidebar user={user}/>
       <div className={styles.root}>
         <PageTitle>Foglalás</PageTitle>
-        <div className="containerFlex">
-          <div className="reserveHead">
+        <div className={styles.containerFlex}>
+          <div className={styles.reserveHead}>
             <p>
               Mielőtt új foglalást veszel fel válaszd ki a táblázat felett
               található legördülő menüből, hogy saját nevedben, vagy valamelyik
@@ -120,7 +143,7 @@ function ReservePage({user, reservations, bands}) {
               fognak megjelenni.
             </p>
           </div>
-          <div className="reserveSelect">
+          <div className={styles.reserveSelect}>
             <span>Melyik zenekarodnak foglalod?</span>
             <form>
               <Select options={bandOptions} onChange={(e) => setSelectedBand({selected: true, band: e.value})}/>
@@ -139,7 +162,14 @@ function ReservePage({user, reservations, bands}) {
               selectable={selectedBand.selected}
               step={60}
               timeslots={1}
+              eventPropGetter={addClass}
             />
+            {myReserve.length !== 0 && (
+              <>
+                <h2 style={{margin: "3rem 0 1rem 0"}}>Foglalásaim:</h2>
+                <FancyList listData={myReserve} vanilla/>
+              </>
+            )}
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import styles from './Button.module.css';
 import cn from 'clsx';
 
-function Button({onClick, type, submit, children, capital}){
+function Button({onClick, type, children, capital, disabled}){
     return (
-        <button onClick={onClick} className={cn(styles.root, {[styles.danger]: type === "danger", [styles.capitalized]: capital})}>{children}</button>
+        <button disabled={disabled} onClick={onClick} className={cn(styles.root, {[styles.disabled]: disabled, [styles.danger]: type === "danger", [styles.approve]: type === "approve", [styles.capitalized]: capital})}>{children}</button>
     );
 }
 

@@ -66,6 +66,10 @@
     justify-content: left !important;
 }
 
+.adminSidebar ul a, .superAdminSidebar ul a, .openerSidebar ul a{
+    margin-left: 2rem;
+}
+
 .sidebar ul{
     opacity: 1;
     list-style: none;

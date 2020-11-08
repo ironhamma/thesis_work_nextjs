@@ -1,0 +1,7 @@
+.root{
+    padding: .25rem .25rem;
+    border-radius: 15px;
+    min-width: 8rem;
+    text-align: center;
+    text-transform: uppercase;
+}

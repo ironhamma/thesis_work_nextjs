@@ -38,7 +38,7 @@ function LoginPage() {
               <label htmlFor="userName">Felhasználónév</label>
               <input type="text" name="userName" id="userName" ref={userNameInput}/>
               <label htmlFor="userPass">Jelszó</label>
-              <input type="text" name="userPass" id="userPass" ref={passInput}/>
+              <input type="password" name="userPass" id="userPass" ref={passInput}/>
               <div className="buttonWrapper">
                 <button type="submit">Belépés</button>
                 <Link href="/news">

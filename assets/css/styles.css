@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;400;700&display=swap');
+
 body, html{
     padding: 0;
     margin: 0;
@@ -153,15 +155,6 @@ body, html{
     cursor: pointer;
 }
 
-.newsFlex{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-}
-
 .containerFlex{
     width: 80%;
     margin: 0 auto;
@@ -170,120 +163,4 @@ body, html{
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
-}
-
-.aboutImg{
-    width: 47%;
-    border-radius: 20px;
-}
-
-.half{
-    width: 50% !important;
-}
-
-.aboutText{
-    font-size: 1.75rem;
-    width: 100%;
-    
-}
-
-.aboutBack{
-    width: 100%;
-    background-color: white;    
-    padding: 1.5rem;
-    border-radius: 20px;
-    border: 2px solid black;
-    margin: 4rem 0 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 2rem;
-}
-
-.aboutText h1{
-    margin-top: 0;
-}
-
-.aboutText.leaders{
-    line-height: 2.5rem;
-}
-
-.aboutText.title{
-    display: flex;
-    margin-bottom: 1rem;
-}
-
-.aboutText.title h2{
-    margin: 0;
-    border-bottom: 2px solid black;
-}
-
-.aboutText.leaders .leaderFlex{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.aboutText.leaders .leaderFlex p{
-    margin: 0;
-}
-
-.aboutText.leaders .leaderFlex .titles{
-    margin-right: 3rem;
-}
-
-.aboutText.items h4, .aboutText.items ul{
-    margin-left: 2rem;
-}
-
-.ruleContainer{
-    width: 100%;
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 20px;
-    border: 2px solid black;
-}
-
-.ruleContainer .title{
-    display: flex;
-}
-
-.ruleContainer .title:not(:first-of-type){
-    margin-top: 2rem;
-}
-
-.ruleContainer .title h2{
-    border-bottom: 2px solid black;
-    margin: 0 0 1rem 0;
-}
-
-.ruleContainer p, .ruleContainer ol, .ruleContainer ul{
-    font-family: 'Roboto', sans-serif;
-    margin: 0 0 0 2rem;
-    line-height: 1.5rem;
-}
-
-.ruleContainer ol{
-    margin-bottom: .5rem;
-}
-
-.profileInfoBox{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    width: 50%;
-    position: relative;
-}
-
-.profileInfoBox > h2{
-    width: 100%;
-    margin-bottom: 2rem;
-}
-
-.profileInfoBox > form {
-    width: 100%;
 }

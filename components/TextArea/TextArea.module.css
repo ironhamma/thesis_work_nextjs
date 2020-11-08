@@ -1,0 +1,18 @@
+.root{
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    min-height: 10rem;
+    resize: none;
+}
+
+.label{
+    font-size: 2rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+}
+
+.wrapper{
+    width: 100%;
+    position: relative;
+}

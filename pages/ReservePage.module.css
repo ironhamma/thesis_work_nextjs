@@ -5,3 +5,86 @@
     padding: 0 5rem 3rem 5rem;
     margin: 0 auto;
 }
+
+.reserveHead {
+    font-family: "Roboto", sans-serif;
+    width: 100%;
+}
+
+.reserveSelect {
+font-family: "Roboto", sans-serif;
+width: 100%;
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.reserveSelect span {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+}
+
+.reserveTableContainer {
+width: 80%;
+margin: 0 auto;
+position: relative;
+}
+  
+.containerFlex{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.pageContainer{
+    position: relative;
+    width: 100%;
+}
+
+.status_inprogress{
+    background-color: #ffe357 !important;
+    color: #615b3c !important;
+    border: 2px solid #c7a600 !important;
+    position: relative;
+}
+
+.status_inprogress::after{
+    content: "Elfogadásra vár";
+    position: absolute;
+    bottom: .5rem;
+    right: .5rem;
+    color: #615b3c;
+}
+
+.status_accepted{
+    background-color: #41d96c !important;
+    color: #2e994c !important;
+    border: 2px solid #2e994c !important;
+    position: relative;
+}
+
+.status_accepted::after{
+    content: "Elfogadva";
+    position: absolute;
+    bottom: .5rem;
+    right: .5rem;
+    color: #2e994c;
+}
+
+.status_declined{
+    background-color: #d14747 !important;
+    color: #8c2e2e !important;
+    border: 2px solid #8c2e2e !important;
+    position: relative;
+}
+
+.status_declined::after{
+    content: "Elutasítva";
+    position: absolute;
+    bottom: .5rem;
+    right: .5rem;
+    color: #8c2e2e;
+}

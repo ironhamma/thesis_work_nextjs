@@ -6,8 +6,11 @@ import styles from "./RulesPage.module.css";
 
 export const getServerSideProps = withIronSession(
   async({req, res}) => {
-    const user = req.session.get('user');
-      
+    let user = req.session.get('user');
+    if(user === undefined){
+      user = null;
+    }
+
     if(!user) {
       return { props: {}};
     }
@@ -30,14 +33,15 @@ export const getServerSideProps = withIronSession(
 );
 
 function RulesPage({user}) {
+  console.log(user);
   return (
-    <div className="pageContainer">
+    <div className={styles.pageContainer}>
       <Sidebar user={user} />
       <div className={styles.root}>
         <PageTitle>Szabályzat</PageTitle>
-        <div className="containerFlex">
-          <div className="ruleContainer">
-            <div className="title">
+        <div className={styles.containerFlex}>
+          <div className={styles.ruleContainer}>
+            <div className={styles.title}>
               <h2>Általános tudnivalók</h2>
             </div>
             <p>
@@ -47,7 +51,7 @@ function RulesPage({user}) {
               Ha olyan problémád van, melyet a lent leírtak nem fednek, úgy a
               körvezetőt / beengedőfönököt kell keresni.
             </p>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Próbaterem használatához szükséges teendők</h2>
             </div>
             <ol>
@@ -71,7 +75,7 @@ function RulesPage({user}) {
               A fentiekkel kapcsolatban bármilyen probléma esetén írjatok a
               levlistára.
             </p>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Bejutás a koliba</h2>
             </div>
             <ol>
@@ -83,7 +87,7 @@ function RulesPage({user}) {
               </li>
               <li>A külsősöket a beengedő tudja fogadni.</li>
             </ol>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Próbarend</h2>
             </div>
             <ol>
@@ -154,7 +158,7 @@ function RulesPage({user}) {
                 stb.), ezeket a próba végén dobd ki a szemetesbe.
               </li>
             </ol>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Szerkók</h2>
             </div>
             <ul>
@@ -166,7 +170,7 @@ function RulesPage({user}) {
                 folyadékot, ételt rakni!
               </li>
             </ul>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Dobcucc</h2>
             </div>
             <ul>
@@ -187,7 +191,7 @@ function RulesPage({user}) {
                 lábcint, hogy ne feszüljenek a rugók!
               </li>
             </ul>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Basszuserősítő</h2>
             </div>
             <ul>
@@ -206,7 +210,7 @@ function RulesPage({user}) {
               </li>
               <li>Kikapcsolás után kapcsold le a hálózati elosztót!</li>
             </ul>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Peavey</h2>
             </div>
             <ul>
@@ -226,21 +230,21 @@ function RulesPage({user}) {
               </li>
               <li>Kikapcsolás után kapcsold le a hálózati elosztót!</li>
             </ul>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Line6</h2>
             </div>
             <ul>
               <li>Ki-be kapcsolásnál a master hangerő legyen lecsavarva!</li>
               <li>Kikapcsolás után kapcsold le a hálózati elosztót!</li>
             </ul>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Keverő és hangfalak</h2>
             </div>
             <p>
               Ezeket az eszközöket kizárólag a beengedők kezelhetik. A próbátok
               elején jelezzétek, ha szükségetek van rá.
             </p>
-            <div className="title">
+            <div className={styles.title}>
               <h2>Szankciók</h2>
             </div>
             <p>
