@@ -29,7 +29,7 @@
 }
 
 .root:hover .bandName{
-    font-size: 2.5rem;
+    font-size: 2rem;
     transform: translate(-50%, -90%);
 }
 
@@ -65,4 +65,111 @@
 .editButton button{
     width: 100%;
     margin-top: 1rem;
+}
+
+.bandMember{
+    padding: .25rem;
+    transition: .3s all;
+    border-radius: 5px;
+}
+
+.bandMember::after{
+    transition: .3s all;
+    position: absolute;
+    right: .25rem;
+    opacity: .5;
+}
+
+.bandMember:hover::after{
+    opacity: 1;
+}
+
+.pending{
+    color: #dd9000;
+    position: relative;
+}
+
+.pending:hover{
+    background-color: #fff3dc;
+}
+
+.pending::after{
+    content: " Meghívva";
+}
+
+.accepted{
+    color: #58dd00;
+    position: relative;
+}
+
+.accepted:hover{
+    background-color: #dcf7cb;
+}
+
+.accepted::after{
+    content: " Tag";
+}
+
+.owner{
+    color: #1300b9;
+    position: relative;
+}
+
+.owner:hover{
+    background-color: #d3d0ec;
+}
+
+.owner::after{
+    content: " Alapító";
+}
+
+.memberEdit{
+    padding-right: 4rem;
+}
+
+.memberEdit::after{
+    right: 4rem;
+}
+
+.removeButton{
+    position: absolute;
+    right: .25rem;
+    top: .25rem;
+    width: 20px;
+    height: 20px;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: .3s all;
+    cursor: pointer;
+    font-size: .9rem;
+}
+
+.bandMember:hover .removeButton{
+    background-color: red;
+    color: white;
+}
+
+.deleteBand{
+    width: 100%;
+    color: red;
+    text-align: center;
+    padding: .5rem 0;
+    background-color: white;
+    font-size: 1.5rem;
+    border-bottom: 2px solid red;
+    transition: .3s all;
+    cursor: pointer;
+}
+
+.deleteBand:hover{
+    color: white;
+    background-color: red;
+}
+
+.invitedBy{
+    text-align: center;
+    font-size: 1.25rem;
 }

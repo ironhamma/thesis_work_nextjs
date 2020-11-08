@@ -21,7 +21,10 @@ export const getServerSideProps = withIronSession(
 
     const { db } = await connectToDatabase();
 
-    const bands = await db.collection('bands').find({users: {user: user.userName}}).toArray();
+    const bands = await db
+      .collection("bands")
+      .find({ users: { $elemMatch: { user: user.userName } } })
+      .toArray();
 
     const users = await db.collection("users").find({}).toArray();
 
@@ -29,7 +32,7 @@ export const getServerSideProps = withIronSession(
       props: {
         user,
         bands: JSON.stringify(bands),
-        users: JSON.stringify(users)
+        users: JSON.stringify(users),
       },
     };
   },
@@ -47,15 +50,76 @@ function BandsPage({ user, bands, users }) {
   const bandData = JSON.parse(bands);
   const usersData = JSON.parse(users);
 
+  const onInvite = async (res, bandName) => {
+    const response = await fetch("/api/bands/invite", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        invited: res.invited.label,
+        inviter: user.userName,
+        bandName: bandName,
+      }),
+    });
+
+    if (response.ok) {
+      return router.push("/bands");
+    }
+  };
+
+  const onRemove = async (band, removed) => {
+    const response = await fetch("/api/bands/removeUser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ band, removed }),
+    });
+
+    if (response.ok) {
+      return router.push("/bands");
+    }
+  };
+
+  const onDelete = async (band) => {
+    const response = await fetch("/api/bands/removeBand", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ band }),
+    });
+
+    if (response.ok) {
+      return router.push("/bands");
+    }
+  };
+
+  const onApprove = async (band, user) => {
+    const response = await fetch("/api/bands/approveInv", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ band, user }),
+    });
+
+    if (response.ok) {
+      return router.push("/bands");
+    }
+  };
+
   return (
     <div className={styles.pageContainer}>
       <Sidebar user={user} />
       <div className={styles.root}>
         <PageTitle>Zenekarjaim</PageTitle>
         <div className={styles.containerFlex}>
-            {bandData.map((e, index) => (
-                <BandCard bandData={e} key={index} users={usersData}/>
-            ))}
+          {bandData.map((e, index) => (
+            <BandCard
+              currentUser={user}
+              bandData={e}
+              key={index}
+              users={usersData}
+              onInvite={onInvite}
+              onRemove={onRemove}
+              onDelete={onDelete}
+              onApprove={onApprove}
+            />
+          ))}
         </div>
       </div>
     </div>
