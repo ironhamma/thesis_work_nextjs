@@ -1,0 +1,36 @@
+.root{
+    min-width: 20rem;
+    background-color: black;
+    color: white;
+    border-right: 2px solid white;
+    position: relative;
+}
+
+.root li{
+    width: 100%;
+    min-height: 6rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid white;
+    padding: .5rem 1rem;
+}
+
+.userName{
+    font-size: 1.25rem;
+    width: 100%;
+}
+
+.msgChunk{
+    font-size: 1.125rem;
+    color: grey;
+}
+
+.lastOnline{
+    color: grey;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+}

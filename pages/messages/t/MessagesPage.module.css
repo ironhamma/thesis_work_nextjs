@@ -1,0 +1,90 @@
+.container{
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.bodyContainer{
+  width: 100%;
+  height: calc(100vh - 5rem);
+  position: relative;
+  display: flex;
+  align-content: stretch;
+}
+
+.messagesBody{
+  width: 100%;
+  position: relative;
+  padding: 3rem;
+  background-color: rgb(43, 43, 43);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: stretch;
+}
+
+.messages{
+  width: 100%;
+  height: calc(100% - 6rem);
+  background-color: rgb(75, 75, 75);
+  border-radius: 5px;
+}
+
+.messageForm{
+  align-self: flex-end;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputWrapper{
+  width: 90%;
+}
+
+.inputWrapper input{
+  margin-bottom: 0;
+}
+
+.message{
+  font-family: 'Roboto';
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem 1rem;
+}
+
+.inComing{
+  justify-content: flex-start;
+}
+
+.outGoing{
+  justify-content: flex-end;
+}
+
+.messageInner{
+  position: relative;
+}
+
+.messageText{
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.inComing .fromUser{
+  position: absolute;
+  bottom: -1.5rem;
+  left: .5rem;
+}
+
+.outGoing .fromUser{
+  position: absolute;
+  bottom: -1.5rem;
+  right:   .5rem;
+}

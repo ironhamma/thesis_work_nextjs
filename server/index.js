@@ -15,7 +15,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('message', ({from, to, message}) => {
-        io.emit(`message${to}`, {from, to, message});
+        console.log(`message${from}${to}Server`);
+        io.emit(`message${from}${to}`, {from, to, message});
     });
 
     socket.on('disconnect', () => {
