@@ -77,6 +77,10 @@
   border-radius: 20px;
 }
 
+.fromUser{
+  display: none;
+}
+
 .inComing .fromUser{
   position: absolute;
   bottom: -1.5rem;

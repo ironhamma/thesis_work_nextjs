@@ -17,6 +17,7 @@ const locales = {
   'en-US': require('date-fns/locale/en-GB'),
 };
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Modal from "../components/Modal";
 
 const localizer = dateFnsLocalizer({
   format,
@@ -38,7 +39,7 @@ export const getServerSideProps = withIronSession(
 
     const { db } = await connectToDatabase();
     const reservations = await db.collection('reservations').find({}).toArray();
-    const bands = await db.collection('bands').find({users: {user: user.userName}}).toArray();
+    const bands = await db.collection('bands').find({users: {$elemMatch: {user: user.userName}}}).toArray();
     return {
       props: {
         user,
@@ -63,6 +64,8 @@ function ReservePage({user, reservations, bands}) {
     value: e.bandName,
     label: e.bandName
   }));
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [selectedBand, setSelectedBand] = useState({selected: false, band: ""});
   const [myReserve, setMyReserve] = useState(reservationData.filter(e => e.reservedBy === user.userName));
@@ -125,6 +128,11 @@ function ReservePage({user, reservations, bands}) {
     }
   };
 
+  const onModalToggle = () => {
+    setModalOpen(!modalOpen);
+    console.log("hello");
+  }
+
   return (
     <div className={styles.pageContainer}>
       <Sidebar user={user}/>
@@ -156,7 +164,7 @@ function ReservePage({user, reservations, bands}) {
               endAccessor="end"
               style={{ width: "100%" }}
               defaultView="week"
-              onSelectEvent={(event) => console.log(event)}
+              onSelectEvent={() => onModalToggle()}
               onSelectSlot={onDragEnd}
               views={['week']}
               selectable={selectedBand.selected}
@@ -172,6 +180,7 @@ function ReservePage({user, reservations, bands}) {
             )}
         </div>
       </div>
+      <Modal open={modalOpen} setOpen={setModalOpen}/>
     </div>
   );
 }

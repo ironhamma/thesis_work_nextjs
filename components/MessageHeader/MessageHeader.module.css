@@ -20,6 +20,11 @@
     font-size: 1.5rem;
 }
 
+.root ul li{
+    cursor: pointer;
+}
+
 .mainTitle{
     font-size: 2.5rem;
+    cursor: default !important;
 }

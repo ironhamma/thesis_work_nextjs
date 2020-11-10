@@ -13,7 +13,9 @@ export default async(req, res) => {
         userDorm: req.body.userDorm,
         userRoom: req.body.userRoom,
         userInstitute: req.body.userInstitute,
-        isAdmin: false
+        fbLoggingIn: false,
+        fbLoggedIn: false,
+        userType: 4,
     }, (err, res) => {
         if(err) throw err;
         console.log(`${req.body.userName} document inserted!`);

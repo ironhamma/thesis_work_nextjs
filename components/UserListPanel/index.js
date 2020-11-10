@@ -1,19 +1,16 @@
 import styles from './UserListPanel.module.css';
-import Link from "next/link";
-import cn from 'clsx';
+import cn from "clsx";
 
-function UserListPanel({users}){
+function UserListPanel({users, onClick, selectedUser}){
     return (
         <div className={styles.root}>
             <ul>
                 {users.map((e, index) => (
-                    <Link href={`/messages/t/${e.userName.replace(" ", "_")}`} key={index}>
-                        <li>
-                            <div className={styles.userName}>{e.userName}</div>
-                            <div className={styles.msgChunk}>Something here you can see...</div>
-                            <div className={styles.lastOnline}>5 napja</div>
-                        </li>
-                    </Link>
+                    <li key={index} onClick={() => onClick(e.userName)} className={cn({[styles.active]: e.userName === selectedUser})}>
+                        <div className={styles.userName}>{e.userName}</div>
+                        <div className={styles.msgChunk}>Something here you can see...</div>
+                        <div className={styles.lastOnline}>5 napja</div>
+                    </li>
                 ))}
             </ul>
         </div>

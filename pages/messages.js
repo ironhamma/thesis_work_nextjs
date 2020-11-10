@@ -1,21 +1,19 @@
-import Sidebar from "../../../components/Sidebar/index";
-import { connectToDatabase } from "../../../util/mongodb";
+import Sidebar from "../components/Sidebar/index";
+import { connectToDatabase } from "../util/mongodb";
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { withIronSession } from "next-iron-session";
 import { useRouter } from "next/router";
 import styles from "./MessagesPage.module.css";
-import MessageHeader from "../../../components/MessageHeader";
-import UserListPanel from "../../../components/UserListPanel";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
+import MessageHeader from "../components/MessageHeader";
+import UserListPanel from "../components/UserListPanel";
+import Input from "../components/Input";
+import Button from "../components/Button";
 import cn from "clsx";
 
 export const getServerSideProps = withIronSession(
   async ({ req, res}) => {
     const user = req.session.get("user");
-    console.log(req.query);
-
     if (!user) {
       res.statusCode = 404;
       res.end();
@@ -24,14 +22,10 @@ export const getServerSideProps = withIronSession(
     const { db } = await connectToDatabase();
     const users = await db.collection("users").find({}).toArray();
 
-    const messages = await db.collection("messages").find({between: `${user.userName}${req.query.username}`}).toArray();
-    console.log(`${user.userName}${req.query.username}`);
-
     return {
       props: {
         users: JSON.parse(JSON.stringify(users)),
-        messages: JSON.parse(JSON.stringify(messages)),
-        user,
+        user
       },
     };
 
@@ -47,24 +41,21 @@ export const getServerSideProps = withIronSession(
 
 const socket = io();
 
-function MessagesPage({ users, user, messages }) {
+function MessagesPage({ users, user}) {
   const router = useRouter();
-  const targetUser = router.query.username;
   const [messageState, setMessageState] = useState({
     message: "",
     from: user.userName,
     to: "",
   });
-  const msgData = messages.messages === undefined ? [] : messages.messages;
-  const [chatState, setChatState] = useState(msgData);
-
-  console.log(messages);
+  const [chatState, setChatState] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
     socket.on(
-      `message${targetUser}${user.userName}`,
+      `message${selectedUser}${user.userName}`,
       ({ from, to, message }) => {
-        if (from === targetUser && to === user.userName) {
+        if (from === selectedUser && to === user.userName) {
           setChatState([...chatState, { from, to, message }]);
         }
       }
@@ -75,12 +66,18 @@ function MessagesPage({ users, user, messages }) {
     setMessageState({ ...messageState, [e.target.name]: e.target.value });
   };
 
-  const onMessageSubmit = (e) => {
+  const onMessageSubmit = async (e) => {
     e.preventDefault();
     const { from, to, message } = messageState;
-    socket.emit("message", { from: user.userName, to: targetUser, message });
-    setChatState([...chatState, {from: user.userName, to: targetUser, message}]);
-    setMessageState({ message: "", from: user.userName, to: targetUser });
+    socket.emit("message", { from: user.userName, to: selectedUser, message });
+    setChatState([...chatState, {from: user.userName, to: selectedUser, message}]);
+    setMessageState({ message: "", from: user.userName, to: selectedUser });
+    const response = await fetch("/api/messages/addMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ from: user.userName, to: selectedUser, message: message})
+    });
+    console.log(response);
   };
 
   const renderChat = () => {
@@ -89,7 +86,7 @@ function MessagesPage({ users, user, messages }) {
         key={index}
         className={cn(styles.message, {
           [styles.inComing]: to === user.userName,
-          [styles.outGoing]: to === targetUser,
+          [styles.outGoing]: to === selectedUser,
         })}
       >
         <div className={styles.messageInner}>
@@ -100,13 +97,29 @@ function MessagesPage({ users, user, messages }) {
     ));
   };
 
+  const getMessages = async (username) => {
+    setSelectedUser(username);
+    const response = await fetch("/api/messages/getMessages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userone: username, usertwo: user.userName })
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if (response.ok) {
+      setChatState(data.messages === undefined ? [] : data.messages);
+    }
+  }
+
   console.log(chatState);
 
   return (
     <div className={styles.container}>
       <MessageHeader />
       <div className={styles.bodyContainer}>
-        <UserListPanel users={users} />
+        <UserListPanel users={users} onClick={getMessages} selectedUser={selectedUser}/>
         <div className={styles.messagesBody}>
           <div className={styles.messages}>{renderChat()}</div>
           <div className={styles.messageForm}>
@@ -121,10 +134,6 @@ function MessagesPage({ users, user, messages }) {
           </div>
         </div>
       </div>
-      {/* <form onSubmit={onMessageSubmit}>
-                    <input type="text" onChange={e => onTextChange(e)} name="message" value={messageState.message} />   
-                    <button type="submit">Küldés</button>
-                </form> */}
     </div>
   );
 }

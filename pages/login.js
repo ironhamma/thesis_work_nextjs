@@ -1,9 +1,8 @@
 import Link from "next/link";
-import {useRef} from 'react';
-import { useRouter } from 'next/router';
+import { useRef } from "react";
+import { useRouter } from "next/router";
 
 function LoginPage() {
-
   const router = useRouter();
   const userNameInput = useRef();
   const passInput = useRef();
@@ -17,13 +16,13 @@ function LoginPage() {
     const response = await fetch("/api/sessionuser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({userName, userPass})
+      body: JSON.stringify({ userName, userPass }),
     });
 
-    if(response.ok){
-      return router.push("/reserve");
+    if (response.ok) {
+      return router.push("/");
     }
-  }
+  };
 
   return (
     <div>
@@ -36,14 +35,27 @@ function LoginPage() {
           <div className="loginForm">
             <form onSubmit={handleSubmit}>
               <label htmlFor="userName">Felhasználónév</label>
-              <input type="text" name="userName" id="userName" ref={userNameInput}/>
+              <input
+                type="text"
+                name="userName"
+                id="userName"
+                ref={userNameInput}
+              />
               <label htmlFor="userPass">Jelszó</label>
-              <input type="password" name="userPass" id="userPass" ref={passInput}/>
+              <input
+                type="password"
+                name="userPass"
+                id="userPass"
+                ref={passInput}
+              />
               <div className="buttonWrapper">
                 <button type="submit">Belépés</button>
-                <Link href="/news">
-                  <a className="schLogin">Belépés SCH accounttal</a>
-                </Link>
+                  <a
+                    href="https://auth.sch.bme.hu/site/login?response_type=code&client_id=58975608503146075333&state=sajt&scope=linkedAccounts+displayName+sn+givenName+mail+mobile"
+                    className="schLogin"
+                  >
+                    Belépés SCH accounttal
+                  </a>
                 <button>Regisztráció</button>
               </div>
             </form>

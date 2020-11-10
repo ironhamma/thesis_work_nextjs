@@ -33,4 +33,23 @@
     position: absolute;
     top: .5rem;
     right: .5rem;
+    opacity: 1;
+    transition: .3s all;
+}
+
+.active{
+    background-color: rgb(32, 32, 32);
+}
+
+.active .lastOnline{
+    opacity: 0;
+}
+
+.active::after{
+    content: "⮞";
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    font-size: 1.5rem;
+    transform: translateY(-50%);
 }

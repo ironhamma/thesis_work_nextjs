@@ -9,7 +9,7 @@ export default withIronSession(
 
             const user = await db.collection('users').find({userName: userName}).toArray();
 
-            if(userPass === user[0].userPass){
+            if(userPass === user[0].userPass || req.body.fromSCHACC){
                 req.session.set("user", { userName, userType: user[0].userType });
                 await req.session.save();
                 return res.status(200).send("");
