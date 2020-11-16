@@ -18,6 +18,8 @@ const locales = {
 };
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Modal from "../components/Modal";
+import StatusPill from "../components/StatusPill";
+import ReserveCard from "../components/ReserveCard";
 
 const localizer = dateFnsLocalizer({
   format,
@@ -69,6 +71,7 @@ function ReservePage({user, reservations, bands}) {
 
   const [selectedBand, setSelectedBand] = useState({selected: false, band: ""});
   const [myReserve, setMyReserve] = useState(reservationData.filter(e => e.reservedBy === user.userName));
+  const [modalEvent, setModalEvent] = useState();
 
   const [events, setEvents] = useState(reservationData.map(e => ({
     title: e.bandName,
@@ -128,10 +131,12 @@ function ReservePage({user, reservations, bands}) {
     }
   };
 
-  const onModalToggle = () => {
-    setModalOpen(!modalOpen);
-    console.log("hello");
+  const onModalToggle = (event) => {
+    setModalEvent(event);
+    setModalOpen(true);
   }
+
+  console.log(modalEvent);
 
   return (
     <div className={styles.pageContainer}>
@@ -164,7 +169,7 @@ function ReservePage({user, reservations, bands}) {
               endAccessor="end"
               style={{ width: "100%" }}
               defaultView="week"
-              onSelectEvent={() => onModalToggle()}
+              onSelectEvent={onModalToggle}
               onSelectSlot={onDragEnd}
               views={['week']}
               selectable={selectedBand.selected}
@@ -180,7 +185,11 @@ function ReservePage({user, reservations, bands}) {
             )}
         </div>
       </div>
-      <Modal open={modalOpen} setOpen={setModalOpen}/>
+      <Modal open={modalOpen} setOpen={() => setModalOpen()}>
+        {modalOpen && (
+          <ReserveCard event={modalEvent} setModalOpen={() => setModalOpen()}/>
+        )}
+      </Modal>
     </div>
   );
 }

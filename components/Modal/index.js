@@ -2,7 +2,7 @@ import styles from './Modal.module.css';
 import cn from 'clsx';
 import { useEffect, useState } from 'react';
 
-function Modal({open, setOpen}){
+function Modal({open, setOpen, children}){
 
     useEffect(() => {
          document.documentElement.style.overflow = open ? "hidden" : "auto";
@@ -11,8 +11,11 @@ function Modal({open, setOpen}){
     return (
         <div>
             {open && (
-                <div className={styles.root} onClick={() => setOpen()}>
-                    <div>Hello</div>
+                <div className={styles.overlay}>
+                    <div className={styles.root}>
+                        <span className={styles.close} onClick={() => setOpen()}>X</span>
+                        <div>{children}</div>
+                    </div>
                 </div>
             )}
         </div>

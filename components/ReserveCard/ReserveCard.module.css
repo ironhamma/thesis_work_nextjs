@@ -1,0 +1,47 @@
+.root{
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.status{
+    margin-bottom: 3rem;
+}
+
+.start, .end{
+    font-size: 1.5rem;
+    margin-bottom: 3.5rem;
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    position: relative;
+}
+
+.start::before, .end::before{
+    position: absolute;
+    top: -2rem;
+    left: 0;
+}
+
+.start::before{
+    content: "Kezdés: ";
+    font-weight: bold;
+}
+
+.end::before{
+    content: "Vége: ";
+    font-weight: bold;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
